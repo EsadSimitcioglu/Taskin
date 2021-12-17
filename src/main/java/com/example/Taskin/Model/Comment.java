@@ -44,4 +44,10 @@ public class Comment {
         this.commentDate = commentDate;
         this.answer = answer;
     }
+
+    public Comment() {}
+
+    public Integer getCommentID() {
+        return commentID;
+    }
 }

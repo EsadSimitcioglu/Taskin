@@ -33,4 +33,5 @@ public class QuestionTag {
     )
     private List<Question> questions;
 
+    public QuestionTag() {}
 }

@@ -41,4 +41,10 @@ public class Answer {
         this.answerDate = answerDate;
         this.question = question;
     }
+
+    public Answer() {}
+
+    public Integer getAnswerID() {
+        return answerID;
+    }
 }

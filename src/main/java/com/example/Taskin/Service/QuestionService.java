@@ -1,6 +1,5 @@
 package com.example.Taskin.Service;
 
-
 import com.example.Taskin.Model.Answer;
 import com.example.Taskin.Model.Comment;
 import com.example.Taskin.Model.Question;
@@ -27,7 +26,6 @@ public class QuestionService {
     CommentRepository commentRepository;
 
 
-
     //Getting all the questions.
     public List<Question> getAllQuestion(){
         return questionRepository.findAll();
@@ -38,15 +36,6 @@ public class QuestionService {
         return questionRepository.findQuestionWithTags(tag);
     }
 
-    /*
-
-    // return all questions which have those tags.
-    public List<Question> getAllQuestionWithTags(List<QuestionTag> tags){
-        return questionRepository.findQuestionsByQuestionTags(tags);
-    }
-
-     */
-
     // Getting all information about a specific question for displaying question details on the screen
     public String getQuestionInformationWithQuestionID(Integer questionID){
         return questionRepository.getQuestionInformation(questionID);
@@ -54,7 +43,8 @@ public class QuestionService {
 
     // Adding a new question. UI should send question title, question text, tags, and question owner to the
     //backend. UI should get newly added question’s id.
-    public Integer saveNewQuestion(Question question){
+    public Integer saveNewQuestion(String questionTitle, String questionDescription, String user, List<QuestionTag> questionTags) {
+        Question question = new Question(questionTitle,questionDescription,user,new Date(),questionTags);
         questionRepository.save(question);
         return question.getQuestionID();
     }
@@ -77,8 +67,7 @@ public class QuestionService {
     //comment’s id and related question’s id.
     public Comment saveNewCommentToQuestion(Integer questionID, String commentText, String user){
 
-        Question question = questionRepository.getById(questionID);
-        Comment comment = new Comment(commentText,user,new Date(),question);
+        Comment comment = new Comment(commentText,user,new Date(), questionRepository.getById(questionID));
         commentRepository.save(comment);
 
         return comment;
@@ -86,10 +75,8 @@ public class QuestionService {
     }
 
     // Voting a question UI needs to display updated vote count on the screen.
-    public Answer addVoteToAnswer(Integer questionID){
-        return questionRepository.updateVoteCountByQuestionID(questionID);
+    public void addVoteToAnswer(Integer questionID){
+        questionRepository.updateVoteCountByQuestionID(questionID);
     }
-
-
 
 }

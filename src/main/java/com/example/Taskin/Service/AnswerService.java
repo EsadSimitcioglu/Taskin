@@ -31,11 +31,17 @@ public class AnswerService {
 
     }
 
-
     // Voting an answer UI needs to display updated vote count on the screen.
-    public Answer addVoteToAnswer(Integer answerID){
-        return answerRepository.updateVoteCountByAnswerID(answerID);
+    public void addVoteToAnswer(Integer answerID){
+        answerRepository.updateVoteCountByAnswerID(answerID);
     }
+
+    // Updating an answer
+    public void updateAnswer(Answer answer){
+        answerRepository.updateAnswer(answer,answer.getAnswerID());
+    }
+
+
 
 
 

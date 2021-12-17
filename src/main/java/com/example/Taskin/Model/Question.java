@@ -28,7 +28,7 @@ public class Question {
     private Integer questionVoteCount;
 
     @Column(name = "question_title")
-    private Integer questionTitle;
+    private String questionTitle;
 
     @Column(name = "question_description")
     private String questionDescription;
@@ -48,6 +48,15 @@ public class Question {
     @ManyToMany(mappedBy = "questions", cascade = CascadeType.ALL)
     private List<QuestionTag> questionTags;
 
+    public Question(String questionTitle, String questionDescription, String questionAskedFrom, Date questionAskedDate, List<QuestionTag> questionTags) {
+        this.questionTitle = questionTitle;
+        this.questionDescription = questionDescription;
+        this.questionAskedFrom = questionAskedFrom;
+        this.questionAskedDate = questionAskedDate;
+        this.questionTags = questionTags;
+    }
+
+    public Question() {}
 
     public Integer getQuestionID() {
         return questionID;
