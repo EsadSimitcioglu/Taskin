@@ -49,5 +49,8 @@ public class Question {
     private List<QuestionTag> questionTags;
 
 
+    public Integer getQuestionID() {
+        return questionID;
+    }
 
 }
