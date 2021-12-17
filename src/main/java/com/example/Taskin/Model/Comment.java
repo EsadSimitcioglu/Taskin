@@ -25,13 +25,23 @@ public class Comment {
     @Column(name = "comment_date")
     private Date commentDate;
 
-    @Column(name = "comment_from")
-    private String commentFrom;
-
     @ManyToOne(cascade = CascadeType.ALL)
     private Question question;
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Answer answer;
 
+    public Comment(String commentText, String commentWriter, Date commentDate,Question question) {
+        this.commentText = commentText;
+        this.commentWriter = commentWriter;
+        this.commentDate = commentDate;
+        this.question = question;
+    }
+
+    public Comment(String commentText, String commentWriter, Date commentDate, Answer answer) {
+        this.commentText = commentText;
+        this.commentWriter = commentWriter;
+        this.commentDate = commentDate;
+        this.answer = answer;
+    }
 }

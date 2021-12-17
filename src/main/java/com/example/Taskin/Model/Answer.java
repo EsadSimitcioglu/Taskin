@@ -35,9 +35,10 @@ public class Answer {
     @OneToMany(mappedBy = "answer", cascade = CascadeType.ALL)
     private List<Comment> answerComments;
 
-    public Answer(String answerText, String answerFrom, Date answerDate) {
+    public Answer(String answerText, String answerFrom, Date answerDate,Question question) {
         this.answerText = answerText;
         this.answerFrom = answerFrom;
         this.answerDate = answerDate;
+        this.question = question;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.Taskin.Repository;
 
+import com.example.Taskin.Model.Answer;
 import com.example.Taskin.Model.Question;
 import com.example.Taskin.Model.QuestionTag;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,10 +17,14 @@ public interface QuestionRepository extends JpaRepository<Question,Integer> {
     @Query("select q from Question q inner join q.questionTags qt where qt.questionTagName = ?1")
     List<Question> findQuestionWithTags(String tag);
 
-    List<Question> findQuestionsByQuestionTags(List<QuestionTag> tags);
-
     @Query("select q from Question q where q.questionID = ?1")
     String getQuestionInformation(Integer id);
+
+    @Modifying
+    @Query("update Question q set q.questionVoteCount = q.questionVoteCount + 1 where q.questionID = ?1")
+    @Transactional
+    Answer updateVoteCountByQuestionID(Integer questionID);
+
 
 
 
