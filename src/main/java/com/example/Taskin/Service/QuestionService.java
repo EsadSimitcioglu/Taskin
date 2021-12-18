@@ -10,7 +10,8 @@ import com.example.Taskin.Repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -44,7 +45,9 @@ public class QuestionService {
     // Adding a new question. UI should send question title, question text, tags, and question owner to the
     //backend. UI should get newly added question’s id.
     public Integer saveNewQuestion(String questionTitle, String questionDescription, String user, List<QuestionTag> questionTags) {
-        Question question = new Question(questionTitle,questionDescription,user,new Date(),questionTags);
+        Date date = new Date(Calendar.getInstance().getTime().getTime());
+        Question question = new Question(questionTitle,questionDescription,user,date,questionTags);
+        System.out.println(question);
         questionRepository.save(question);
         return question.getQuestionID();
     }
@@ -53,9 +56,9 @@ public class QuestionService {
     //fields to the back-end application: answer text and user. UI needs newly added answer’s id and
     //related question’s id.
     public Answer saveNewAnswerToQuestion(Integer questionID,String answerText, String user){
-
+        Date date = new Date(Calendar.getInstance().getTime().getTime());
         Question question = questionRepository.getById(questionID);
-        Answer answer = new Answer(answerText,user,new Date(),question);
+        Answer answer = new Answer(answerText,user,date,question);
         answerRepository.save(answer);
 
         return answer;
@@ -66,8 +69,8 @@ public class QuestionService {
     //following fields to the back-end application: comment text and user. UI needs newly added
     //comment’s id and related question’s id.
     public Comment saveNewCommentToQuestion(Integer questionID, String commentText, String user){
-
-        Comment comment = new Comment(commentText,user,new Date(), questionRepository.getById(questionID));
+        Date date = new Date(Calendar.getInstance().getTime().getTime());
+        Comment comment = new Comment(commentText,user,date, questionRepository.getById(questionID));
         commentRepository.save(comment);
 
         return comment;

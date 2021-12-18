@@ -25,29 +25,27 @@ public class QuestionController {
     @GetMapping("/tag/{questionTag}")
     public List<Question> getAllQuestionWithQuestionTag(@PathVariable("questionTag") String questionTag) {return questionService.getAllQuestionWithTag(questionTag);}
 
-    @GetMapping("/details/{id}")
+    @GetMapping("/{id}/details")
     public String getQuestionInformationWithQuestionID(@PathVariable("id") Integer id) {return questionService.getQuestionInformationWithQuestionID(id);}
 
     @PostMapping
-    public Integer postQuestion(String questionTitle, String questionDescription,String user, List<QuestionTag> questionTags){
-        return questionService.saveNewQuestion(questionTitle,questionDescription,user,questionTags);
+    public Integer postQuestion(@RequestBody Question question){
+        return questionService.saveNewQuestion(question.getQuestionTitle(),question.getQuestionDescription(),question.getQuestionAskedFrom(),question.getQuestionTags());
     }
 
-    @PostMapping
-    public Answer postAnswerToQuestion(Integer questionID, String answerText, String user){
-        return questionService.saveNewAnswerToQuestion(questionID,answerText,user);
+    @PostMapping("/{id}/answers")
+    public Answer postAnswerToQuestion(@PathVariable Integer id, @RequestBody Answer answer){
+        return questionService.saveNewAnswerToQuestion(id,answer.getAnswerText(),answer.getAnswerFrom());
     }
 
-    @PostMapping
-    public Comment postCommentToQuestion(Integer questionID, String commentText, String user){
-        return questionService.saveNewCommentToQuestion(questionID,commentText,user);
+    @PostMapping("/{id}/comments")
+    public Comment postCommentToQuestion(@PathVariable Integer id, @RequestBody Comment comment){
+        return questionService.saveNewCommentToQuestion(id,comment.getCommentText(),comment.getCommentWriter());
     }
 
-    @PutMapping("/votes/{id}")
+    @PutMapping("/{id}/votes")
     public void putVoteByOneToQuestion(@PathVariable("id") Integer id){
         questionService.addVoteToAnswer(id);
     }
-
-
 
 }

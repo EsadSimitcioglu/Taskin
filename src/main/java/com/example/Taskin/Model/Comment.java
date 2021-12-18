@@ -1,7 +1,9 @@
 package com.example.Taskin.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 public class Comment {
@@ -25,9 +27,11 @@ public class Comment {
     @Column(name = "comment_date")
     private Date commentDate;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     private Question question;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     private Answer answer;
 
@@ -49,5 +53,49 @@ public class Comment {
 
     public Integer getCommentID() {
         return commentID;
+    }
+
+    public void setCommentID(Integer commentID) {
+        this.commentID = commentID;
+    }
+
+    public String getCommentText() {
+        return commentText;
+    }
+
+    public void setCommentText(String commentText) {
+        this.commentText = commentText;
+    }
+
+    public String getCommentWriter() {
+        return commentWriter;
+    }
+
+    public void setCommentWriter(String commentWriter) {
+        this.commentWriter = commentWriter;
+    }
+
+    public Date getCommentDate() {
+        return commentDate;
+    }
+
+    public void setCommentDate(Date commentDate) {
+        this.commentDate = commentDate;
+    }
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+
+    public Answer getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(Answer answer) {
+        this.answer = answer;
     }
 }

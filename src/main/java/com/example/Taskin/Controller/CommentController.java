@@ -12,10 +12,10 @@ public class CommentController {
     @Autowired
     CommentService commentService;
 
-    @DeleteMapping("/questions/{id}")
+    @DeleteMapping("/{id}/questions")
     public void deleteCommentWithQuestionIDFromComment(@PathVariable Integer id){commentService.deleteCommentWithQuestionID(id);}
 
-    @DeleteMapping("/answers/{id}")
+    @DeleteMapping("/{id}/answers")
     public void deleteCommentWithAnswerIDFromComment(@PathVariable Integer id){commentService.deleteCommentWithAnswerID(id);}
 
     @PutMapping

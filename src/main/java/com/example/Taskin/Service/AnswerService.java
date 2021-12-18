@@ -7,7 +7,8 @@ import com.example.Taskin.Repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.sql.Date;
+import java.util.Calendar;
 
 @Service
 public class AnswerService {
@@ -22,9 +23,9 @@ public class AnswerService {
     //following fields to the back-end application: comment text and user. UI needs newly added
     //comment’s id and related answer’s id.
     public Comment saveNewCommentToAnswer(Integer answerID, String commentText, String user){
-
+        Date date = new Date(Calendar.getInstance().getTime().getTime());
         Answer answer = answerRepository.getById(answerID);
-        Comment comment = new Comment(commentText,user,new Date(),answer);
+        Comment comment = new Comment(commentText,user,date,answer);
         commentRepository.save(comment);
 
         return comment;

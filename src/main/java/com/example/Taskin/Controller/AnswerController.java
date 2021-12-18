@@ -14,19 +14,17 @@ public class AnswerController {
     @Autowired
     AnswerService answerService;
 
-    @PostMapping
-    public Comment postCommentToAnswer(Integer answerID, String commentText, String user){
-        return answerService.saveNewCommentToAnswer(answerID,commentText,user);
-    }
-
-    @PutMapping("/votes/{id}")
-    public void putVoteByOneToAnswer(@PathVariable("id") Integer id){
-        answerService.addVoteToAnswer(id);
-    }
+    @PostMapping("/{id}/comments")
+    public Comment postCommentToAnswer(@PathVariable Integer id, @RequestBody Comment comment){return answerService.saveNewCommentToAnswer(id,comment.getCommentText(),comment.getCommentWriter());}
 
     @PutMapping
-    public void putVoteByOneToAnswer(@RequestBody Answer answer){
+    public void putAnswer(@RequestBody Answer answer){
         answerService.updateAnswer(answer);
+    }
+
+    @PutMapping("/{id}/votes")
+    public void putVoteByOneToAnswer(@PathVariable("id") Integer id){
+        answerService.addVoteToAnswer(id);
     }
 
 }
