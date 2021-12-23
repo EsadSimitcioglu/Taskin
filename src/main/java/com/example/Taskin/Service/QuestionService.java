@@ -79,7 +79,12 @@ public class QuestionService {
 
     // Voting a question UI needs to display updated vote count on the screen.
     public void addVoteToAnswer(Integer questionID){
-        questionRepository.updateVoteCountByQuestionID(questionID);
+        questionRepository.increaseVoteCountByQuestionID(questionID);
+    }
+
+    // Voting a question UI needs to display updated vote count on the screen.
+    public void removeVoteToAnswer(Integer questionID){
+        questionRepository.decreaseVoteCountByQuestionID(questionID);
     }
 
 }

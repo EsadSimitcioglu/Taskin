@@ -22,9 +22,13 @@ public class AnswerController {
         answerService.updateAnswer(answer);
     }
 
-    @PutMapping("/{id}/votes")
-    public void putVoteByOneToAnswer(@PathVariable("id") Integer id){
+    @PutMapping("/{id}/votes/increases")
+    public void putIncreaseVoteToAnswer(@PathVariable("id") Integer id){
         answerService.addVoteToAnswer(id);
     }
 
+    @PutMapping("/{id}/votes/decreases")
+    public void putDecreaseVoteToAnswer(@PathVariable("id") Integer id){
+        answerService.deleteVoteToAnswer(id);
+    }
 }

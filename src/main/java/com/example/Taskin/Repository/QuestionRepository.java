@@ -23,8 +23,12 @@ public interface QuestionRepository extends JpaRepository<Question,Integer> {
     @Modifying
     @Query("update Question q set q.questionVoteCount = q.questionVoteCount + 1 where q.questionID = ?1")
     @Transactional
-    void updateVoteCountByQuestionID(Integer questionID);
+    void increaseVoteCountByQuestionID(Integer questionID);
 
+    @Modifying
+    @Query("update Question q set q.questionVoteCount = q.questionVoteCount - 1 where q.questionID = ?1")
+    @Transactional
+    void decreaseVoteCountByQuestionID(Integer questionID);
 
 
 

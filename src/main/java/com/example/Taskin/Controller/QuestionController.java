@@ -43,9 +43,15 @@ public class QuestionController {
         return questionService.saveNewCommentToQuestion(id,comment.getCommentText(),comment.getCommentWriter());
     }
 
-    @PutMapping("/{id}/votes")
-    public void putVoteByOneToQuestion(@PathVariable("id") Integer id){
+    @PutMapping("/{id}/votes/increases")
+    public void putIncreaseVoteToAnswer(@PathVariable("id") Integer id){
         questionService.addVoteToAnswer(id);
     }
+
+    @PutMapping("/{id}/votes/decreases")
+    public void putDecreaseVoteToAnswer(@PathVariable("id") Integer id){
+        questionService.removeVoteToAnswer(id);
+    }
+
 
 }

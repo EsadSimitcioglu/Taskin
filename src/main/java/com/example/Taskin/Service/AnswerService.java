@@ -34,7 +34,12 @@ public class AnswerService {
 
     // Voting an answer UI needs to display updated vote count on the screen.
     public void addVoteToAnswer(Integer answerID){
-        answerRepository.updateVoteCountByAnswerID(answerID);
+        answerRepository.increaseVoteCountByAnswerID(answerID);
+    }
+
+    // Voting an answer UI needs to display updated vote count on the screen.
+    public void deleteVoteToAnswer(Integer answerID){
+        answerRepository.decreaseVoteCountByAnswerID(answerID);
     }
 
     // Updating an answer
