@@ -14,21 +14,25 @@ public class AnswerController {
     @Autowired
     AnswerService answerService;
 
+    @GetMapping("/votes/{id}")
+    public Integer getAnswersVoteCount(@PathVariable("id") Integer id){return answerService.showAnswerVoteCount(id);};
+
     @PostMapping("/{id}/comments")
-    public Comment postCommentToAnswer(@PathVariable Integer id, @RequestBody Comment comment){return answerService.saveNewCommentToAnswer(id,comment.getCommentText(),comment.getCommentWriter());}
+    public Comment postCommentToAnswer(@PathVariable("id") Integer id, @RequestBody Comment comment){return answerService.saveNewCommentToAnswer(id,comment.getCommentText(),comment.getUser().getUserName());}
 
     @PutMapping
     public void putAnswer(@RequestBody Answer answer){
         answerService.updateAnswer(answer);
     }
 
-    @PutMapping("/{id}/votes/increases")
+    @PutMapping("/{id}/votes=>")
     public void putIncreaseVoteToAnswer(@PathVariable("id") Integer id){
         answerService.addVoteToAnswer(id);
     }
 
-    @PutMapping("/{id}/votes/decreases")
+    @DeleteMapping("/{id}/votes=>")
     public void putDecreaseVoteToAnswer(@PathVariable("id") Integer id){
-        answerService.deleteVoteToAnswer(id);
+        answerService.removeVoteFromAnswer(id);
     }
+
 }

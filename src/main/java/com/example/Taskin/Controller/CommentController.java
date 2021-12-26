@@ -21,4 +21,9 @@ public class CommentController {
     @PutMapping
     public void putComment(@RequestBody Comment comment){commentService.updateComment(comment);}
 
+    @PutMapping("/{id}/votes")
+    public void putVoteByOneToAnswer(@PathVariable("id") Integer id){
+        commentService.addVoteToComment(id);
+    }
+
 }

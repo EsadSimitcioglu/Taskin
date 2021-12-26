@@ -21,11 +21,14 @@ public class Comment {
     @Column(name = "comment_text")
     private String commentText;
 
-    @Column(name = "comment_writer")
-    private String commentWriter;
-
     @Column(name = "comment_date")
     private Date commentDate;
+
+    @Column(name = "comment_vote_count")
+    private Integer commentVoteCount;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private User user;
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
@@ -35,18 +38,18 @@ public class Comment {
     @ManyToOne(cascade = CascadeType.ALL)
     private Answer answer;
 
-    public Comment(String commentText, String commentWriter, Date commentDate,Question question) {
+    public Comment(String commentText,User user, Date commentDate,Question question) {
         this.commentText = commentText;
-        this.commentWriter = commentWriter;
         this.commentDate = commentDate;
         this.question = question;
+        this.user = user;
     }
 
-    public Comment(String commentText, String commentWriter, Date commentDate, Answer answer) {
+    public Comment(String commentText, User user, Date commentDate, Answer answer) {
         this.commentText = commentText;
-        this.commentWriter = commentWriter;
         this.commentDate = commentDate;
         this.answer = answer;
+        this.user = user;
     }
 
     public Comment() {}
@@ -65,14 +68,6 @@ public class Comment {
 
     public void setCommentText(String commentText) {
         this.commentText = commentText;
-    }
-
-    public String getCommentWriter() {
-        return commentWriter;
-    }
-
-    public void setCommentWriter(String commentWriter) {
-        this.commentWriter = commentWriter;
     }
 
     public Date getCommentDate() {
@@ -97,5 +92,21 @@ public class Comment {
 
     public void setAnswer(Answer answer) {
         this.answer = answer;
+    }
+
+    public Integer getCommentVoteCount() {
+        return commentVoteCount;
+    }
+
+    public void setCommentVoteCount(Integer commentVoteCount) {
+        this.commentVoteCount = commentVoteCount;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
