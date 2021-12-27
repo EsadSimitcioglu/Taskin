@@ -6,18 +6,11 @@ import com.example.Taskin.Model.Question;
 import java.util.Date;
 
 public class CommentDTO {
-    protected int id;
     protected String text;
     protected String author;
     protected Date date;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    protected Question question;
+    protected Answer answer;
 
     public String getText() {
         return text;
@@ -41,6 +34,22 @@ public class CommentDTO {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+
+    public Answer getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(Answer answer) {
+        this.answer = answer;
     }
 }
 

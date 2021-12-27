@@ -4,6 +4,8 @@ import com.example.Taskin.Model.Answer;
 import com.example.Taskin.Model.Comment;
 import com.example.Taskin.Model.Question;
 import com.example.Taskin.Model.QuestionTag;
+import com.example.Taskin.Model.dto.AnswerDTO;
+import com.example.Taskin.Model.dto.CommentDTO;
 import com.example.Taskin.Model.dto.QuestionDTO;
 import com.example.Taskin.Repository.AnswerRepository;
 import com.example.Taskin.Repository.CommentRepository;
@@ -34,6 +36,9 @@ public class QuestionService {
         return questionRepository.findAll();
     }
 
+    /*
+    THIS PART WAS ADDED
+     */
     public List<QuestionDTO> getAllQuestionDTO() {
         List<QuestionDTO> listDto = new ArrayList<>();
         List<Question> list = questionRepository.findAll();
@@ -59,6 +64,9 @@ public class QuestionService {
         return questionRepository.findQuestionWithTags(tag);
     }
 
+    /*
+    THIS PART WAS ADDED
+     */
     public List<QuestionDTO> getAllQuestionWithTagDTO(String tag) {
         List<QuestionDTO> listDto = new ArrayList<>();
         List<Question> list = questionRepository.findQuestionWithTags(tag);
@@ -107,6 +115,24 @@ public class QuestionService {
 
     }
 
+    /*
+    THIS PART WAS ADDED
+     */
+    public AnswerDTO saveNewAnswerToQuestionDTO(Integer questionID, String answerText, String user) {
+        Date date = new Date(Calendar.getInstance().getTime().getTime());
+        Question question = questionRepository.getById(questionID);
+        Answer answer = new Answer(answerText,user,date,question);
+        answerRepository.save(answer);
+
+        AnswerDTO answerDTO = new AnswerDTO();
+        answerDTO.setAnswerText(answerText);
+        answerDTO.setUser(user);
+        answerDTO.setAnswerDate(date);
+        answerDTO.setQuestion(question);
+
+        return answerDTO;
+    }
+
     // Adding a new comment for a question. In addition to the Question ID, UI should also send the
     //following fields to the back-end application: comment text and user. UI needs newly added
     //comment’s id and related question’s id.
@@ -116,6 +142,25 @@ public class QuestionService {
         commentRepository.save(comment);
 
         return comment;
+
+    }
+
+    /*
+    THIS PART WAS ADDED
+     */
+    public CommentDTO saveNewCommentToQuestionDTO(Integer questionID, String commentText, String user){
+        Date date = new Date(Calendar.getInstance().getTime().getTime());
+        Question question = questionRepository.getById(questionID);
+        Comment comment = new Comment(commentText,user,date, question);
+        commentRepository.save(comment);
+
+        CommentDTO commentDTO = new CommentDTO();
+        commentDTO.setText(commentText);
+        commentDTO.setAuthor(user);
+        commentDTO.setDate(date);
+        commentDTO.setQuestion(question);
+
+        return commentDTO;
 
     }
 
