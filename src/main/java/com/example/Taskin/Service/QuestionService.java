@@ -35,12 +35,10 @@ public class QuestionService {
     }
 
     public List<QuestionDTO> getAllQuestionDTO() {
-        List<Question> list = new ArrayList<>();
         List<QuestionDTO> listDto = new ArrayList<>();
+        List<Question> list = questionRepository.findAll();
 
-        list = questionRepository.findAll();
-
-        for (Question question : list) {
+        list.forEach(question -> {
             QuestionDTO dto = new QuestionDTO();
             dto.setId(question.getQuestionID());
             dto.setTitle(question.getQuestionTitle());
@@ -51,7 +49,7 @@ public class QuestionService {
             dto.setViewCount(question.getQuestionViewCount());
             dto.setVoteCount(question.getQuestionVoteCount());
             listDto.add(dto);
-        }
+        });
 
         return listDto;
     }
@@ -59,6 +57,26 @@ public class QuestionService {
     //  return all questions which have those tag.
     public List<Question> getAllQuestionWithTag(String tag){
         return questionRepository.findQuestionWithTags(tag);
+    }
+
+    public List<QuestionDTO> getAllQuestionWithTagDTO(String tag) {
+        List<QuestionDTO> listDto = new ArrayList<>();
+        List<Question> list = questionRepository.findQuestionWithTags(tag);
+
+        list.forEach(question -> {
+            QuestionDTO dto = new QuestionDTO();
+            dto.setId(question.getQuestionID());
+            dto.setTitle(question.getQuestionTitle());
+            dto.setDescription(question.getQuestionDescription());
+            dto.setAuthor(question.getQuestionAskedFrom());
+            dto.setDate(question.getQuestionAskedDate());
+            dto.setAnswerCount(question.getQuestionAnswerCount());
+            dto.setViewCount(question.getQuestionViewCount());
+            dto.setVoteCount(question.getQuestionVoteCount());
+            listDto.add(dto);
+        });
+
+        return listDto;
     }
 
     // Getting all information about a specific question for displaying question details on the screen
