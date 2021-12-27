@@ -4,6 +4,7 @@ import com.example.Taskin.Model.Answer;
 import com.example.Taskin.Model.Comment;
 import com.example.Taskin.Model.Question;
 import com.example.Taskin.Model.QuestionTag;
+import com.example.Taskin.Model.dto.QuestionDTO;
 import com.example.Taskin.Repository.AnswerRepository;
 import com.example.Taskin.Repository.CommentRepository;
 import com.example.Taskin.Repository.QuestionRepository;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -30,6 +32,28 @@ public class QuestionService {
     //Getting all the questions.
     public List<Question> getAllQuestion(){
         return questionRepository.findAll();
+    }
+
+    public List<QuestionDTO> getAllQuestionDTO() {
+        List<Question> list = new ArrayList<>();
+        List<QuestionDTO> listDto = new ArrayList<>();
+
+        list = questionRepository.findAll();
+
+        for (Question question : list) {
+            QuestionDTO dto = new QuestionDTO();
+            dto.setId(question.getQuestionID());
+            dto.setTitle(question.getQuestionTitle());
+            dto.setDescription(question.getQuestionDescription());
+            dto.setAuthor(question.getQuestionAskedFrom());
+            dto.setDate(question.getQuestionAskedDate());
+            dto.setAnswerCount(question.getQuestionAnswerCount());
+            dto.setViewCount(question.getQuestionViewCount());
+            dto.setVoteCount(question.getQuestionVoteCount());
+            listDto.add(dto);
+        }
+
+        return listDto;
     }
 
     //  return all questions which have those tag.
