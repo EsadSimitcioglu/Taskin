@@ -38,6 +38,7 @@ public class Comment {
     @ManyToOne(cascade = CascadeType.ALL)
     private Answer answer;
 
+
     public Comment(String commentText,User user, Date commentDate,Question question) {
         this.commentText = commentText;
         this.commentDate = commentDate;

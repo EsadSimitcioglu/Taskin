@@ -2,6 +2,7 @@ package com.example.Taskin.Service;
 
 import com.example.Taskin.Model.Answer;
 import com.example.Taskin.Model.Comment;
+import com.example.Taskin.Model.dto.CommentDTO;
 import com.example.Taskin.Model.User;
 import com.example.Taskin.Repository.AnswerRepository;
 import com.example.Taskin.Repository.CommentRepository;
@@ -35,7 +36,24 @@ public class AnswerService {
         commentRepository.save(comment);
 
         return comment;
+    }
 
+    /*
+    THIS PART WAS ADDED
+     */
+    public CommentDTO saveNewCommentToAnswerDTO(Integer answerID, String commentText, String user) {
+        Date date = new Date(Calendar.getInstance().getTime().getTime());
+        Answer answer = answerRepository.getById(answerID);
+        Comment comment = new Comment(commentText,user,date,answer);
+        commentRepository.save(comment);
+
+        CommentDTO commentDTO = new CommentDTO();
+        commentDTO.setText(commentText);
+        commentDTO.setAuthor(user);
+        commentDTO.setDate(date);
+        commentDTO.setAnswer(answer);
+
+        return commentDTO;
     }
 
     // Voting an answer UI needs to display updated vote count on the screen.
@@ -55,5 +73,4 @@ public class AnswerService {
 
     // Display the answer's vote count
     public Integer showAnswerVoteCount(Integer answerID) {return answerRepository.getAllAnswerVoteCount(answerID);}
-
 }
