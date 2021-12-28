@@ -28,7 +28,7 @@ public class AnswerController {
                             description = "Successful operation"),
                 @ApiResponse(responseCode = "401",
                         description = "Unsuccessful operation")})
-    public Comment postCommentToAnswer(@PathVariable Integer id, @RequestBody Comment comment){return answerService.saveNewCommentToAnswer(id,comment.getCommentText(),comment.getCommentWriter());}
+    public Comment postCommentToAnswer(@PathVariable Integer id, @RequestBody Comment comment){return answerService.saveNewCommentToAnswer(id,comment.getCommentText(),comment.getUser());}
 
 
     @Operation (summary = "Update an answer",

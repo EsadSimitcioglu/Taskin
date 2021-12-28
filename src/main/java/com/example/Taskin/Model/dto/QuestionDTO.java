@@ -1,12 +1,14 @@
 package com.example.Taskin.Model.dto;
 
+import com.example.Taskin.Model.User;
+
 import java.util.Date;
 
 public class QuestionDTO {
     protected int id;
     protected String title;
     protected String description;
-    protected String author;
+    protected User author;
     protected Date date;
     protected int answerCount;
     protected int viewCount;
@@ -36,11 +38,11 @@ public class QuestionDTO {
         this.description = description;
     }
 
-    public String getAuthor() {
+    public User getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(User author) {
         this.author = author;
     }
 

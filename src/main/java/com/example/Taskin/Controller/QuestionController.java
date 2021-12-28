@@ -4,6 +4,7 @@ import com.example.Taskin.Model.Answer;
 import com.example.Taskin.Model.Comment;
 import com.example.Taskin.Model.Question;
 import com.example.Taskin.Model.QuestionTag;
+import com.example.Taskin.Model.dto.QuestionDTO;
 import com.example.Taskin.Service.QuestionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -43,7 +44,7 @@ public class QuestionController {
     public List<Question> getAllQuestionWithQuestionTag(@PathVariable("questionTag") String questionTag) {return questionService.getAllQuestionWithTag(questionTag);}
 
     @GetMapping("/tag")
-    public List<Question> getAllQuestionWithQuestionTag(@RequestBody List<QuestionTag> questionTags) {return questionService.getAllQuestionWithTags(questionTags);}
+    public List<QuestionDTO> getAllQuestionWithQuestionTag(@RequestBody List<QuestionTag> questionTags) {return questionService.getAllQuestionWithTags(questionTags);}
 
     @GetMapping("/{id}/details")
     @Operation (summary = "GET question with ID",

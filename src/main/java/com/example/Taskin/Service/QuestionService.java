@@ -1,5 +1,8 @@
 package com.example.Taskin.Service;
 import com.example.Taskin.Model.*;
+import com.example.Taskin.Model.dto.AnswerDTO;
+import com.example.Taskin.Model.dto.CommentDTO;
+import com.example.Taskin.Model.dto.QuestionDTO;
 import com.example.Taskin.Repository.AnswerRepository;
 import com.example.Taskin.Repository.CommentRepository;
 import com.example.Taskin.Repository.QuestionRepository;
@@ -43,7 +46,7 @@ public class QuestionService {
             dto.setId(question.getQuestionID());
             dto.setTitle(question.getQuestionTitle());
             dto.setDescription(question.getQuestionDescription());
-            dto.setAuthor(question.getQuestionAskedFrom());
+            dto.setAuthor(question.getUser());
             dto.setDate(question.getQuestionAskedDate());
             dto.setAnswerCount(question.getQuestionAnswerCount());
             dto.setViewCount(question.getQuestionViewCount());
@@ -60,7 +63,7 @@ public class QuestionService {
     }
 
   
-    public List<Question> getAllQuestionWithTags(List<QuestionTag> tags){
+    public List<QuestionDTO> getAllQuestionWithTags(List<QuestionTag> tags){
         List<QuestionDTO> listDto = new ArrayList<>();
         List<Question> list = questionRepository.findQuestionsByQuestionTags(tags);
 
@@ -69,7 +72,7 @@ public class QuestionService {
             dto.setId(question.getQuestionID());
             dto.setTitle(question.getQuestionTitle());
             dto.setDescription(question.getQuestionDescription());
-            dto.setAuthor(question.getQuestionAskedFrom());
+            dto.setAuthor(question.getUser());
             dto.setDate(question.getQuestionAskedDate());
             dto.setAnswerCount(question.getQuestionAnswerCount());
             dto.setViewCount(question.getQuestionViewCount());
@@ -109,8 +112,9 @@ public class QuestionService {
 
 
   
-    public AnswerDTO saveNewAnswerToQuestionDTO(Integer questionID, String answerText, String user) {
+    public AnswerDTO saveNewAnswerToQuestionDTO(Integer questionID, String answerText, String username) {
         Date date = new Date(Calendar.getInstance().getTime().getTime());
+        User user = userRepository.getUserByUserName(username);
         Question question = questionRepository.getById(questionID);
         Answer answer = new Answer(answerText,user,date,question);
         answerRepository.save(answer);
@@ -137,8 +141,9 @@ public class QuestionService {
 
 
   
-    public CommentDTO saveNewCommentToQuestionDTO(Integer questionID, String commentText, String user){
+    public CommentDTO saveNewCommentToQuestionDTO(Integer questionID, String commentText, String username){
         Date date = new Date(Calendar.getInstance().getTime().getTime());
+        User user = userRepository.getUserByUserName(username);
         Question question = questionRepository.getById(questionID);
         Comment comment = new Comment(commentText,user,date, question);
         commentRepository.save(comment);

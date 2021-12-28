@@ -28,9 +28,8 @@ public class AnswerService {
     //Adding a new comment for an answer. In addition to the Answer ID, UI should also send the
     //following fields to the back-end application: comment text and user. UI needs newly added
     //comment’s id and related answer’s id.
-    public Comment saveNewCommentToAnswer(Integer answerID, String commentText, String username){
+    public Comment saveNewCommentToAnswer(Integer answerID, String commentText, User user){
         Date date = new Date(Calendar.getInstance().getTime().getTime());
-        User user = userRepository.getUserByUserName(username);
         Answer answer = answerRepository.getById(answerID);
         Comment comment = new Comment(commentText,user,date,answer);
         commentRepository.save(comment);
@@ -41,8 +40,9 @@ public class AnswerService {
     /*
     THIS PART WAS ADDED
      */
-    public CommentDTO saveNewCommentToAnswerDTO(Integer answerID, String commentText, String user) {
+    public CommentDTO saveNewCommentToAnswerDTO(Integer answerID, String commentText, String username) {
         Date date = new Date(Calendar.getInstance().getTime().getTime());
+        User user = userRepository.getUserByUserName(username);
         Answer answer = answerRepository.getById(answerID);
         Comment comment = new Comment(commentText,user,date,answer);
         commentRepository.save(comment);

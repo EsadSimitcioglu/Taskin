@@ -2,12 +2,13 @@ package com.example.Taskin.Model.dto;
 
 import com.example.Taskin.Model.Answer;
 import com.example.Taskin.Model.Question;
+import com.example.Taskin.Model.User;
 
 import java.util.Date;
 
 public class CommentDTO {
     protected String text;
-    protected String author;
+    protected User author;
     protected Date date;
     protected Question question;
     protected Answer answer;
@@ -20,11 +21,11 @@ public class CommentDTO {
         this.text = text;
     }
 
-    public String getAuthor() {
+    public User getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(User author) {
         this.author = author;
     }
 
