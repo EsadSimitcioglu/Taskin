@@ -25,11 +25,11 @@ public class Answer {
     @Column(name = "answer_vote_count")
     private Integer answerVoteCount;
 
-    @Column(name = "answer_from")
-    private String answerFrom;
-
     @Column(name = "answer_date")
     private Date answerDate;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private User user;
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
@@ -38,11 +38,11 @@ public class Answer {
     @OneToMany(mappedBy = "answer", cascade = CascadeType.ALL)
     private List<Comment> answerComments;
 
-    public Answer(String answerText, String answerFrom, Date answerDate,Question question) {
+    public Answer(String answerText, User user, Date answerDate,Question question) {
         this.answerText = answerText;
-        this.answerFrom = answerFrom;
         this.answerDate = answerDate;
         this.question = question;
+        this.user = user;
 
         this.answerVoteCount = 0;
 
@@ -74,14 +74,6 @@ public class Answer {
         this.answerVoteCount = answerVoteCount;
     }
 
-    public String getAnswerFrom() {
-        return answerFrom;
-    }
-
-    public void setAnswerFrom(String answerFrom) {
-        this.answerFrom = answerFrom;
-    }
-
     public Date getAnswerDate() {
         return answerDate;
     }
@@ -104,5 +96,13 @@ public class Answer {
 
     public void setAnswerComments(List<Comment> answerComments) {
         this.answerComments = answerComments;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

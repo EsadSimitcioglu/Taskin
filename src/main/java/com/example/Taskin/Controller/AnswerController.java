@@ -17,6 +17,9 @@ public class AnswerController {
     @Autowired
     AnswerService answerService;
 
+    @GetMapping("/votes/{id}")
+    public Integer getAnswersVoteCount(@PathVariable("id") Integer id){return answerService.showAnswerVoteCount(id);};
+
     @PostMapping("/{id}/comments")
     @Operation (summary = "Post a comment",
                 description = "Save new comment's content to database")
@@ -40,7 +43,6 @@ public class AnswerController {
         answerService.updateAnswer(answer);
     }
 
-
     @Operation (summary = "Upvote an answer",
             description = "Increase the positive vote count of an answer")
     @ApiResponses(value = {
@@ -62,6 +64,7 @@ public class AnswerController {
                     description = "Unsuccessful operation")})
     @PutMapping("/{id}/votes/decreases")
     public void putDecreaseVoteToAnswer(@PathVariable("id") Integer id){
-        answerService.deleteVoteToAnswer(id);
+        answerService.removeVoteFromAnswer(id);
     }
+
 }

@@ -3,8 +3,10 @@ package com.example.Taskin.Service;
 import com.example.Taskin.Model.Answer;
 import com.example.Taskin.Model.Comment;
 import com.example.Taskin.Model.dto.CommentDTO;
+import com.example.Taskin.Model.User;
 import com.example.Taskin.Repository.AnswerRepository;
 import com.example.Taskin.Repository.CommentRepository;
+import com.example.Taskin.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,11 +22,15 @@ public class AnswerService {
     @Autowired
     CommentRepository commentRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
     //Adding a new comment for an answer. In addition to the Answer ID, UI should also send the
     //following fields to the back-end application: comment text and user. UI needs newly added
     //comment’s id and related answer’s id.
-    public Comment saveNewCommentToAnswer(Integer answerID, String commentText, String user){
+    public Comment saveNewCommentToAnswer(Integer answerID, String commentText, String username){
         Date date = new Date(Calendar.getInstance().getTime().getTime());
+        User user = userRepository.getUserByUserName(username);
         Answer answer = answerRepository.getById(answerID);
         Comment comment = new Comment(commentText,user,date,answer);
         commentRepository.save(comment);
@@ -56,7 +62,7 @@ public class AnswerService {
     }
 
     // Voting an answer UI needs to display updated vote count on the screen.
-    public void deleteVoteToAnswer(Integer answerID){
+    public void removeVoteFromAnswer(Integer answerID){
         answerRepository.decreaseVoteCountByAnswerID(answerID);
     }
 
@@ -65,4 +71,6 @@ public class AnswerService {
         answerRepository.updateAnswer(answer,answer.getAnswerID());
     }
 
+    // Display the answer's vote count
+    public Integer showAnswerVoteCount(Integer answerID) {return answerRepository.getAllAnswerVoteCount(answerID);}
 }

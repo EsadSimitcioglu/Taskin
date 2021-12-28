@@ -25,6 +25,8 @@ public interface AnswerRepository extends JpaRepository<Answer,Integer> {
     @Transactional
     void updateAnswer(Answer answer,Integer answerID);
 
+    @Query("select a.answerVoteCount from Answer a where a.answerID = ?1")
+    Integer getAllAnswerVoteCount(Integer answerID);
 
 
 }

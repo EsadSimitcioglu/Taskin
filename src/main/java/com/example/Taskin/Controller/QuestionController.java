@@ -42,6 +42,9 @@ public class QuestionController {
                     description = "Unsuccessful operation")})
     public List<Question> getAllQuestionWithQuestionTag(@PathVariable("questionTag") String questionTag) {return questionService.getAllQuestionWithTag(questionTag);}
 
+    @GetMapping("/tag")
+    public List<Question> getAllQuestionWithQuestionTag(@RequestBody List<QuestionTag> questionTags) {return questionService.getAllQuestionWithTags(questionTags);}
+
     @GetMapping("/{id}/details")
     @Operation (summary = "GET question with ID",
             description = "GET question content with question's ID")
@@ -53,6 +56,9 @@ public class QuestionController {
     public String getQuestionInformationWithQuestionID(@PathVariable("id") Integer id) {return questionService.getQuestionInformationWithQuestionID(id);}
 
 
+    @GetMapping("/votes/{id}")
+    public Integer getQuestionVoteCount(@PathVariable("id") Integer id){return questionService.showQuestionVoteCount(id);};
+
     @PostMapping
     @Operation(summary = "Post a question",
             description = "Save new question to database")
@@ -62,7 +68,7 @@ public class QuestionController {
             @ApiResponse(responseCode = "401",
                     description = "Unsuccessful operation")})
     public Integer postQuestion(@RequestBody Question question){
-        return questionService.saveNewQuestion(question.getQuestionTitle(),question.getQuestionDescription(),question.getQuestionAskedFrom(),question.getQuestionTags());
+        return questionService.saveNewQuestion(question.getQuestionTitle(),question.getQuestionDescription(),question.getUser().getUserName(),question.getQuestionTags());
     }
 
     @PostMapping("/{id}/answers")
@@ -74,7 +80,7 @@ public class QuestionController {
             @ApiResponse(responseCode = "401",
                     description = "Unsuccessful operation")})
     public Answer postAnswerToQuestion(@PathVariable Integer id, @RequestBody Answer answer){
-        return questionService.saveNewAnswerToQuestion(id,answer.getAnswerText(),answer.getAnswerFrom());
+        return questionService.saveNewAnswerToQuestion(id,answer.getAnswerText(),answer.getUser().getUserName());
     }
 
     @PostMapping("/{id}/comments")
@@ -86,7 +92,7 @@ public class QuestionController {
             @ApiResponse(responseCode = "401",
                     description = "Unsuccessful operation")})
     public Comment postCommentToQuestion(@PathVariable Integer id, @RequestBody Comment comment){
-        return questionService.saveNewCommentToQuestion(id,comment.getCommentText(),comment.getCommentWriter());
+        return questionService.saveNewCommentToQuestion(id,comment.getCommentText(),comment.getUser().getUserName());
     }
 
 
@@ -99,7 +105,7 @@ public class QuestionController {
             @ApiResponse(responseCode = "401",
                     description = "Unsuccessful operation")})
     public void putIncreaseVoteToAnswer(@PathVariable("id") Integer id){
-        questionService.addVoteToAnswer(id);
+        questionService.addVoteToQuestion(id);
     }
 
     @PutMapping("/{id}/votes/decreases")
@@ -111,7 +117,7 @@ public class QuestionController {
             @ApiResponse(responseCode = "401",
                     description = "Unsuccessful operation")})
     public void putDecreaseVoteToAnswer(@PathVariable("id") Integer id){
-        questionService.removeVoteToAnswer(id);
+        questionService.removeVoteFromQuestion(id);
     }
 
 

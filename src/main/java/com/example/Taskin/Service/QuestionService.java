@@ -1,15 +1,9 @@
 package com.example.Taskin.Service;
-
-import com.example.Taskin.Model.Answer;
-import com.example.Taskin.Model.Comment;
-import com.example.Taskin.Model.Question;
-import com.example.Taskin.Model.QuestionTag;
-import com.example.Taskin.Model.dto.AnswerDTO;
-import com.example.Taskin.Model.dto.CommentDTO;
-import com.example.Taskin.Model.dto.QuestionDTO;
+import com.example.Taskin.Model.*;
 import com.example.Taskin.Repository.AnswerRepository;
 import com.example.Taskin.Repository.CommentRepository;
 import com.example.Taskin.Repository.QuestionRepository;
+import com.example.Taskin.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,15 +24,16 @@ public class QuestionService {
     @Autowired
     CommentRepository commentRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
 
     //Getting all the questions.
     public List<Question> getAllQuestion(){
         return questionRepository.findAll();
     }
 
-    /*
-    THIS PART WAS ADDED
-     */
+
     public List<QuestionDTO> getAllQuestionDTO() {
         List<QuestionDTO> listDto = new ArrayList<>();
         List<Question> list = questionRepository.findAll();
@@ -64,12 +59,10 @@ public class QuestionService {
         return questionRepository.findQuestionWithTags(tag);
     }
 
-    /*
-    THIS PART WAS ADDED
-     */
-    public List<QuestionDTO> getAllQuestionWithTagDTO(String tag) {
+  
+    public List<Question> getAllQuestionWithTags(List<QuestionTag> tags){
         List<QuestionDTO> listDto = new ArrayList<>();
-        List<Question> list = questionRepository.findQuestionWithTags(tag);
+        List<Question> list = questionRepository.findQuestionsByQuestionTags(tags);
 
         list.forEach(question -> {
             QuestionDTO dto = new QuestionDTO();
@@ -94,10 +87,10 @@ public class QuestionService {
 
     // Adding a new question. UI should send question title, question text, tags, and question owner to the
     //backend. UI should get newly added question’s id.
-    public Integer saveNewQuestion(String questionTitle, String questionDescription, String user, List<QuestionTag> questionTags) {
+    public Integer saveNewQuestion(String questionTitle, String questionDescription, String username, List<QuestionTag> questionTags) {
         Date date = new Date(Calendar.getInstance().getTime().getTime());
+        User user = userRepository.getUserByUserName(username);
         Question question = new Question(questionTitle,questionDescription,user,date,questionTags);
-        System.out.println(question);
         questionRepository.save(question);
         return question.getQuestionID();
     }
@@ -105,19 +98,17 @@ public class QuestionService {
     // Adding a new answer for a question. In addition to the Question ID, UI should also send the following
     //fields to the back-end application: answer text and user. UI needs newly added answer’s id and
     //related question’s id.
-    public Answer saveNewAnswerToQuestion(Integer questionID,String answerText, String user){
+    public Answer saveNewAnswerToQuestion(Integer questionID,String answerText, String username){
         Date date = new Date(Calendar.getInstance().getTime().getTime());
+        User user = userRepository.getUserByUserName(username);
         Question question = questionRepository.getById(questionID);
         Answer answer = new Answer(answerText,user,date,question);
         answerRepository.save(answer);
-
         return answer;
-
     }
 
-    /*
-    THIS PART WAS ADDED
-     */
+
+  
     public AnswerDTO saveNewAnswerToQuestionDTO(Integer questionID, String answerText, String user) {
         Date date = new Date(Calendar.getInstance().getTime().getTime());
         Question question = questionRepository.getById(questionID);
@@ -136,18 +127,16 @@ public class QuestionService {
     // Adding a new comment for a question. In addition to the Question ID, UI should also send the
     //following fields to the back-end application: comment text and user. UI needs newly added
     //comment’s id and related question’s id.
-    public Comment saveNewCommentToQuestion(Integer questionID, String commentText, String user){
+    public Comment saveNewCommentToQuestion(Integer questionID, String commentText, String username){
         Date date = new Date(Calendar.getInstance().getTime().getTime());
+        User user = userRepository.getUserByUserName(username);
         Comment comment = new Comment(commentText,user,date, questionRepository.getById(questionID));
         commentRepository.save(comment);
-
         return comment;
-
     }
 
-    /*
-    THIS PART WAS ADDED
-     */
+
+  
     public CommentDTO saveNewCommentToQuestionDTO(Integer questionID, String commentText, String user){
         Date date = new Date(Calendar.getInstance().getTime().getTime());
         Question question = questionRepository.getById(questionID);
@@ -165,13 +154,16 @@ public class QuestionService {
     }
 
     // Voting a question UI needs to display updated vote count on the screen.
-    public void addVoteToAnswer(Integer questionID){
+    public void addVoteToQuestion(Integer questionID){
         questionRepository.increaseVoteCountByQuestionID(questionID);
     }
 
     // Voting a question UI needs to display updated vote count on the screen.
-    public void removeVoteToAnswer(Integer questionID){
+    public void removeVoteFromQuestion(Integer questionID){
         questionRepository.decreaseVoteCountByQuestionID(questionID);
     }
+
+    // Display the question's vote count
+    public Integer showQuestionVoteCount(Integer questionID) {return questionRepository.getAllQuestionVoteCount(questionID);}
 
 }
