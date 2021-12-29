@@ -1,6 +1,8 @@
 package com.example.Taskin.Service;
-
 import com.example.Taskin.Model.*;
+import com.example.Taskin.Model.dto.AnswerDTO;
+import com.example.Taskin.Model.dto.CommentDTO;
+import com.example.Taskin.Model.dto.QuestionDTO;
 import com.example.Taskin.Repository.AnswerRepository;
 import com.example.Taskin.Repository.CommentRepository;
 import com.example.Taskin.Repository.QuestionRepository;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -33,14 +36,51 @@ public class QuestionService {
         return questionRepository.findAll();
     }
 
+
+    public List<QuestionDTO> getAllQuestionDTO() {
+        List<QuestionDTO> listDto = new ArrayList<>();
+        List<Question> list = questionRepository.findAll();
+
+        list.forEach(question -> {
+            QuestionDTO dto = new QuestionDTO();
+            dto.setId(question.getQuestionID());
+            dto.setTitle(question.getQuestionTitle());
+            dto.setDescription(question.getQuestionDescription());
+            dto.setAuthor(question.getUser());
+            dto.setDate(question.getQuestionAskedDate());
+            dto.setAnswerCount(question.getQuestionAnswerCount());
+            dto.setViewCount(question.getQuestionViewCount());
+            dto.setVoteCount(question.getQuestionVoteCount());
+            listDto.add(dto);
+        });
+
+        return listDto;
+    }
+
     //  return all questions which have those tag.
     public List<Question> getAllQuestionWithTag(String tag){
         return questionRepository.findQuestionWithTags(tag);
     }
 
-    //  return all questions which have those tag.
-    public List<Question> getAllQuestionWithTags(List<QuestionTag> tags){
-        return questionRepository.findQuestionsByQuestionTags(tags);
+  
+    public List<QuestionDTO> getAllQuestionWithTags(List<QuestionTag> tags){
+        List<QuestionDTO> listDto = new ArrayList<>();
+        List<Question> list = questionRepository.findQuestionsByQuestionTags(tags);
+
+        list.forEach(question -> {
+            QuestionDTO dto = new QuestionDTO();
+            dto.setId(question.getQuestionID());
+            dto.setTitle(question.getQuestionTitle());
+            dto.setDescription(question.getQuestionDescription());
+            dto.setAuthor(question.getUser());
+            dto.setDate(question.getQuestionAskedDate());
+            dto.setAnswerCount(question.getQuestionAnswerCount());
+            dto.setViewCount(question.getQuestionViewCount());
+            dto.setVoteCount(question.getQuestionVoteCount());
+            listDto.add(dto);
+        });
+
+        return listDto;
     }
 
     // Getting all information about a specific question for displaying question details on the screen
@@ -70,6 +110,24 @@ public class QuestionService {
         return answer;
     }
 
+
+  
+    public AnswerDTO saveNewAnswerToQuestionDTO(Integer questionID, String answerText, String username) {
+        Date date = new Date(Calendar.getInstance().getTime().getTime());
+        User user = userRepository.getUserByUserName(username);
+        Question question = questionRepository.getById(questionID);
+        Answer answer = new Answer(answerText,user,date,question);
+        answerRepository.save(answer);
+
+        AnswerDTO answerDTO = new AnswerDTO();
+        answerDTO.setAnswerText(answerText);
+        answerDTO.setUser(user);
+        answerDTO.setAnswerDate(date);
+        answerDTO.setQuestion(question);
+
+        return answerDTO;
+    }
+
     // Adding a new comment for a question. In addition to the Question ID, UI should also send the
     //following fields to the back-end application: comment text and user. UI needs newly added
     //comment’s id and related question’s id.
@@ -79,6 +137,25 @@ public class QuestionService {
         Comment comment = new Comment(commentText,user,date, questionRepository.getById(questionID));
         commentRepository.save(comment);
         return comment;
+    }
+
+
+  
+    public CommentDTO saveNewCommentToQuestionDTO(Integer questionID, String commentText, String username){
+        Date date = new Date(Calendar.getInstance().getTime().getTime());
+        User user = userRepository.getUserByUserName(username);
+        Question question = questionRepository.getById(questionID);
+        Comment comment = new Comment(commentText,user,date, question);
+        commentRepository.save(comment);
+
+        CommentDTO commentDTO = new CommentDTO();
+        commentDTO.setText(commentText);
+        commentDTO.setAuthor(user);
+        commentDTO.setDate(date);
+        commentDTO.setQuestion(question);
+
+        return commentDTO;
+
     }
 
     // Voting a question UI needs to display updated vote count on the screen.
