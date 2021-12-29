@@ -28,14 +28,19 @@ public class AnswerService {
     //following fields to the back-end application: comment text and user. UI needs newly added
     //comment’s id and related answer’s id.
     public Comment saveNewCommentToAnswer(Integer answerID, String commentText, String username){
-        Date date = new Date(Calendar.getInstance().getTime().getTime());
+
         User user = userRepository.getUserByUserName(username);
         Answer answer = answerRepository.getById(answerID);
-        Comment comment = new Comment(commentText,user,date,answer);
-        commentRepository.save(comment);
 
-        return comment;
+        if(user.equals(answer.getUser()))
+            return null;
 
+        else{
+            Date date = new Date(Calendar.getInstance().getTime().getTime());
+            Comment comment = new Comment(commentText,user,date,answer);
+            commentRepository.save(comment);
+            return comment;
+        }
     }
 
     // Voting an answer UI needs to display updated vote count on the screen.
