@@ -44,7 +44,7 @@ public class QuestionController {
     public List<Question> getAllQuestionWithQuestionTag(@PathVariable("questionTag") String questionTag) {return questionService.getAllQuestionWithTag(questionTag);}
 
     @GetMapping("/tag")
-    public List<QuestionDTO> getAllQuestionWithQuestionTag(@RequestBody List<QuestionTag> questionTags) {return questionService.getAllQuestionWithTags(questionTags);}
+    public List<QuestionDTO> getAllQuestionWithQuestionTag(@RequestParam List<QuestionTag> questionTags) {return questionService.getAllQuestionWithTags(questionTags);}
 
     @GetMapping("/{id}/details")
     @Operation (summary = "GET question with ID",
