@@ -16,16 +16,16 @@ public class Answer {
             allocationSize = 1
     )
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "answer_sequence")
-    @Column(name = "answer_id")
+    @Column(name = "answer_id", nullable = false)
     private Integer answerID;
 
-    @Column(name = "answer_text")
+    @Column(name = "answer_text", nullable = false)
     private String answerText;
 
-    @Column(name = "answer_vote_count")
+    @Column(name = "answer_vote_count", nullable = false)
     private Integer answerVoteCount;
 
-    @Column(name = "answer_date")
+    @Column(name = "answer_date", nullable = false)
     private Date answerDate;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -43,9 +43,7 @@ public class Answer {
         this.answerDate = answerDate;
         this.question = question;
         this.user = user;
-
         this.answerVoteCount = 0;
-
     }
 
     public Answer() {}

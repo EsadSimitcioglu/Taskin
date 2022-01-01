@@ -15,25 +15,25 @@ public class Question {
             allocationSize = 1
     )
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "question_sequence")
-    @Column(name = "question_id")
+    @Column(name = "question_id", nullable = false)
     private Integer questionID;
 
-    @Column(name = "question_title")
+    @Column(name = "question_title", nullable = false)
     private String questionTitle;
 
-    @Column(name = "question_description")
+    @Column(name = "question_description", nullable = false)
     private String questionDescription;
 
-    @Column(name = "question_asked_date")
+    @Column(name = "question_asked_date", nullable = false)
     private Date questionAskedDate;
 
-    @Column(name = "question_answer_count")
+    @Column(name = "question_answer_count", nullable = false)
     private Integer questionAnswerCount;
 
-    @Column(name = "question_view_count")
+    @Column(name = "question_view_count", nullable = false)
     private Integer questionViewCount;
 
-    @Column(name = "question_vote_count")
+    @Column(name = "question_vote_count", nullable = false)
     private Integer questionVoteCount;
 
     @ManyToOne(cascade = CascadeType.ALL)
