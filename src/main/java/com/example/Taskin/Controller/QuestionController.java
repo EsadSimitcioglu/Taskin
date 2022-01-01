@@ -3,7 +3,8 @@ package com.example.Taskin.Controller;
 import com.example.Taskin.Model.Answer;
 import com.example.Taskin.Model.Comment;
 import com.example.Taskin.Model.Question;
-import com.example.Taskin.Model.QuestionTag;
+import com.example.Taskin.Model.dto.AnswerDTO;
+import com.example.Taskin.Model.dto.CommentDTO;
 import com.example.Taskin.Model.dto.QuestionDTO;
 import com.example.Taskin.Service.QuestionService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,7 +15,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @RequestMapping("/questions")
@@ -44,7 +44,7 @@ public class QuestionController {
                 )
             }
     )
-    public List<Question> getAllQuestion() {return questionService.getAllQuestion();}
+    public List<QuestionDTO> getAllQuestion() {return questionService.getAllQuestionDTO();}
 
     @GetMapping("/tag/{questionTag}")
     @Operation (
@@ -65,7 +65,7 @@ public class QuestionController {
                 )
             }
     )
-    public List<Question> getAllQuestionWithQuestionTag(@PathVariable("questionTag") String questionTag) {return questionService.getAllQuestionWithTag(questionTag);}
+    public List<QuestionDTO> getAllQuestionWithQuestionTag(@RequestParam List<String> questionTags) {return questionService.getAllQuestionWithTags(questionTags);}
 
     @GetMapping("/tag")
     public List<QuestionDTO> getAllQuestionWithQuestionTag(@RequestParam List<QuestionTag> questionTags) {return questionService.getAllQuestionWithTags(questionTags);}
@@ -137,8 +137,8 @@ public class QuestionController {
                 )
             }
     )
-    public Answer postAnswerToQuestion(@PathVariable Integer id, @RequestBody Answer answer){
-        return questionService.saveNewAnswerToQuestion(id,answer.getAnswerText(),answer.getUser().getUserName());
+    public AnswerDTO postAnswerToQuestion(@PathVariable Integer id, @RequestBody Answer answer){
+        return questionService.saveNewAnswerToQuestionDTO(id,answer.getAnswerText(),answer.getUser().getUserName());
     }
 
     @PostMapping("/{id}/comments")
@@ -160,9 +160,9 @@ public class QuestionController {
                 )
             }
     )
-    public Comment postCommentToQuestion(@PathVariable Integer id, @RequestBody Comment comment){
-        return questionService.saveNewCommentToQuestion(id,comment.getCommentText(),comment.getUser().getUserName());
-    }
+    public CommentDTO postCommentToQuestion(@PathVariable Integer id, @RequestBody Comment comment){
+        return questionService.saveNewCommentToQuestionDTO(id,comment.getCommentText(),comment.getUser().getUserName());
+    
 
 
     @PutMapping("/{id}/votes/increases")
@@ -211,6 +211,4 @@ public class QuestionController {
     public void putDecreaseVoteToAnswer(@PathVariable("id") Integer id){
         questionService.removeVoteFromQuestion(id);
     }
-
-
 }

@@ -3,6 +3,7 @@ package com.example.Taskin.Controller;
 
 import com.example.Taskin.Model.Answer;
 import com.example.Taskin.Model.Comment;
+import com.example.Taskin.Model.dto.CommentDTO;
 import com.example.Taskin.Service.AnswerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -25,6 +26,7 @@ public class AnswerController {
     @PostMapping("/{id}/comments")
     @Operation (summary = "Post a comment",
                 description = "Save new comment's content to database")
+    
     @ApiResponses(
             value = {
                 @ApiResponse(
@@ -39,9 +41,8 @@ public class AnswerController {
                 )
             }
     )
-    public Comment postCommentToAnswer(@PathVariable Integer id, @RequestBody Comment comment){return answerService.saveNewCommentToAnswer(id,comment.getCommentText(),comment.getUser().getUserName());}
-
-
+    public CommentDTO postCommentToAnswer(@PathVariable Integer id, @RequestBody Comment comment){return answerService.saveNewCommentToAnswer(id,comment.getCommentText(),comment.getUser().getUserName());}
+    
     @Operation (
             summary = "Update an answer",
             description = "Update answer's content to new values"

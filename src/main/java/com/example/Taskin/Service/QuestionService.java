@@ -7,6 +7,9 @@ import com.example.Taskin.Repository.AnswerRepository;
 import com.example.Taskin.Repository.CommentRepository;
 import com.example.Taskin.Repository.QuestionRepository;
 import com.example.Taskin.Repository.UserRepository;
+import com.example.Taskin.Service.Mapper.AnswerMapper;
+import com.example.Taskin.Service.Mapper.CommentMapper;
+import com.example.Taskin.Service.Mapper.QuestionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,12 +35,7 @@ public class QuestionService {
     UserRepository userRepository;
 
 
-    //Getting all the questions.
-    public List<Question> getAllQuestion(){
-        return questionRepository.findAll();
-    }
-
-
+    //Getting all the questions
     public List<QuestionDTO> getAllQuestionDTO() {
         List<QuestionDTO> listDto = new ArrayList<>();
         List<Question> list = questionRepository.findAll();
@@ -59,34 +57,18 @@ public class QuestionService {
     }
 
     //  return all questions which have those tag.
-    public List<Question> getAllQuestionWithTag(String tag){
-        return questionRepository.findQuestionWithTags(tag);
-    }
-
-  
-    public List<QuestionDTO> getAllQuestionWithTags(List<QuestionTag> tags){
+    public List<QuestionDTO> getAllQuestionWithTags(List<String> tags){
         List<QuestionDTO> listDto = new ArrayList<>();
 
         List<Question> list = questionRepository.getQuestionByQuestionTagsIn(tags);
 
         list.forEach(question -> {
-            QuestionDTO dto = new QuestionDTO();
-            dto.setId(question.getQuestionID());
-            dto.setTitle(question.getQuestionTitle());
-            dto.setDescription(question.getQuestionDescription());
-            dto.setAuthor(question.getUser());
-            dto.setDate(question.getQuestionAskedDate());
-            dto.setAnswerCount(question.getQuestionAnswerCount());
-            dto.setViewCount(question.getQuestionViewCount());
-            dto.setVoteCount(question.getQuestionVoteCount());
+            QuestionDTO dto = QuestionMapper.INSTANCE.commentToCommentDTO(question);
             listDto.add(dto);
         });
 
         return listDto;
     }
-
-
-
 
     // Getting all information about a specific question for displaying question details on the screen
     public String getQuestionInformationWithQuestionID(Integer questionID){
@@ -106,17 +88,6 @@ public class QuestionService {
     // Adding a new answer for a question. In addition to the Question ID, UI should also send the following
     //fields to the back-end application: answer text and user. UI needs newly added answer’s id and
     //related question’s id.
-    public Answer saveNewAnswerToQuestion(Integer questionID,String answerText, String username){
-        Date date = new Date(Calendar.getInstance().getTime().getTime());
-        Users user = userRepository.getUserByUserName(username);
-        Question question = questionRepository.getById(questionID);
-        Answer answer = new Answer(answerText,user,date,question);
-        answerRepository.save(answer);
-        return answer;
-    }
-
-
-  
     public AnswerDTO saveNewAnswerToQuestionDTO(Integer questionID, String answerText, String username) {
         Date date = new Date(Calendar.getInstance().getTime().getTime());
         Users user = userRepository.getUserByUserName(username);
@@ -124,28 +95,12 @@ public class QuestionService {
         Answer answer = new Answer(answerText,user,date,question);
         answerRepository.save(answer);
 
-        AnswerDTO answerDTO = new AnswerDTO();
-        answerDTO.setAnswerText(answerText);
-        answerDTO.setUser(user);
-        answerDTO.setAnswerDate(date);
-        answerDTO.setQuestion(question);
-
-        return answerDTO;
+        return AnswerMapper.INSTANCE.answerToAnswerDto(answer);
     }
 
     // Adding a new comment for a question. In addition to the Question ID, UI should also send the
     //following fields to the back-end application: comment text and user. UI needs newly added
     //comment’s id and related question’s id.
-    public Comment saveNewCommentToQuestion(Integer questionID, String commentText, String username){
-        Date date = new Date(Calendar.getInstance().getTime().getTime());
-        Users user = userRepository.getUserByUserName(username);
-        Comment comment = new Comment(commentText,user,date, questionRepository.getById(questionID));
-        commentRepository.save(comment);
-        return comment;
-    }
-
-
-  
     public CommentDTO saveNewCommentToQuestionDTO(Integer questionID, String commentText, String username){
         Date date = new Date(Calendar.getInstance().getTime().getTime());
         Users user = userRepository.getUserByUserName(username);
@@ -153,13 +108,7 @@ public class QuestionService {
         Comment comment = new Comment(commentText,user,date, question);
         commentRepository.save(comment);
 
-        CommentDTO commentDTO = new CommentDTO();
-        commentDTO.setText(commentText);
-        commentDTO.setAuthor(user);
-        commentDTO.setDate(date);
-        commentDTO.setQuestion(question);
-
-        return commentDTO;
+        return CommentMapper.INSTANCE.commentToCommentDTO(comment);
 
     }
 
