@@ -13,10 +13,10 @@ public class QuestionTag {
             allocationSize = 1
     )
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "question_tag_sequence")
-    @Column(name = "question_tag_id")
+    @Column(name = "question_tag_id", nullable = false)
     private Integer questionTagID;
 
-    @Column(name = "question_tag_name")
+    @Column(name = "question_tag_name", nullable = false)
     private String questionTagName;
 
     @ManyToMany(cascade = CascadeType.ALL)

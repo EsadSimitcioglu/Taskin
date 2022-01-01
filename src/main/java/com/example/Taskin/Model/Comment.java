@@ -15,16 +15,16 @@ public class Comment {
             allocationSize = 1
     )
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "comment_sequence")
-    @Column(name = "comment_id")
+    @Column(name = "comment_id", nullable = false)
     private Integer commentID;
 
-    @Column(name = "comment_text")
+    @Column(name = "comment_text", nullable = false)
     private String commentText;
 
-    @Column(name = "comment_date")
+    @Column(name = "comment_date", nullable = false)
     private Date commentDate;
 
-    @Column(name = "comment_vote_count")
+    @Column(name = "comment_vote_count", nullable = false)
     private Integer commentVoteCount;
 
     @ManyToOne(cascade = CascadeType.ALL)

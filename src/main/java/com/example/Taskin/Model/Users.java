@@ -13,13 +13,13 @@ public class Users {
             allocationSize = 1
     )
     @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "user_sequence")
-    @Column(name = "user_id")
+    @Column(name = "user_id", nullable = false)
     private Integer userID;
 
-    @Column(name = "user_name")
+    @Column(name = "user_name", nullable = false)
     private String userName;
 
-    @Column(name = "user_password")
+    @Column(name = "user_password", nullable = false)
     private String userPassword;
 
     @OneToMany(mappedBy = "user")
