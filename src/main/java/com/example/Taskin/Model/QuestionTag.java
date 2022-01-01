@@ -19,18 +19,7 @@ public class QuestionTag {
     @Column(name = "question_tag_name", nullable = false)
     private String questionTagName;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "question_tag_map",
-            joinColumns = @JoinColumn(
-                    name = "question_tag_id",
-                    referencedColumnName = "question_tag_id"
-            ),
-            inverseJoinColumns = @JoinColumn(
-                    name = "question_id",
-                    referencedColumnName = "question_id"
-            )
-    )
+    @ManyToMany(mappedBy = "questionTags", cascade = CascadeType.ALL)
     private List<Question> questions;
 
     public QuestionTag() {}
@@ -42,4 +31,5 @@ public class QuestionTag {
     public void setQuestionTagName(String questionTagName) {
         this.questionTagName = questionTagName;
     }
+
 }

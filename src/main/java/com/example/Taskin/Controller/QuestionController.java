@@ -49,7 +49,7 @@ public class QuestionController {
     )
     public List<QuestionDTO> getAllQuestion() {return questionService.getAllQuestionDTO();}
 
-    @GetMapping("/tag/{questionTag}")
+    @GetMapping("/tags")
     @Operation (
             summary = "GET questions that have tag",
             description = "GET questions that a have a question tag"
@@ -68,7 +68,9 @@ public class QuestionController {
                 )
             }
     )
-    public List<QuestionDTO> getAllQuestionWithQuestionTag(@RequestParam List<String> questionTags) {return questionService.getAllQuestionWithTags(questionTags);}
+    public List<QuestionDTO> getAllQuestionWithQuestionTag(@RequestParam List<String> questionTags) {
+        return questionService.getAllQuestionWithTags(questionTags);
+    }
 
     @GetMapping("/{id}/details")
     @Operation (

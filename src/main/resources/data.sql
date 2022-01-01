@@ -13,7 +13,5 @@ values(4,'Esma Hoca', '!€$m@+MéRæI_');
 insert into Question_Tag values (100, 'Gereksiz');
 insert into Question_Tag values (101, 'Gerekli');
 
-
-insert into Question(question_id,  question_description, question_title, user_user_id)
-values (1, 'MapStruct' , 'Hocam merhaba, mapStruct nasil kullanacagiz? Tesekkurler', 2)
-
+insert into Question
+values (100, 0, current_date, 'Hocam merhaba, mapStruct nasil kullanacagiz? Tesekkurler', 'MapStruct', 0, 0, 2)

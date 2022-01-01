@@ -25,7 +25,7 @@ public class Answer {
     @Column(name = "answer_vote_count")
     private Integer answerVoteCount;
 
-    @Column(name = "answer_date", nullable = false)
+    @Column(name = "answer_date")
     private Date answerDate;
 
     @ManyToOne(cascade = CascadeType.ALL)

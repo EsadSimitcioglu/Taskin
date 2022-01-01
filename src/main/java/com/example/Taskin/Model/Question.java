@@ -15,7 +15,7 @@ public class Question {
             allocationSize = 1
     )
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "question_sequence")
-    @Column(name = "question_id", nullable = false)
+    @Column(name = "question_id")
     private Integer questionID;
 
     @Column(name = "question_title", nullable = false)
@@ -45,8 +45,21 @@ public class Question {
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Answer> questionAnswer;
 
-    @ManyToMany(mappedBy = "questions", cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "question_tag_map",
+            joinColumns = @JoinColumn(
+                    name = "question_id",
+                    referencedColumnName = "question_id"
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "question_tag_id",
+                    referencedColumnName = "question_tag_id"
+            )
+    )
     private List<QuestionTag> questionTags;
+
+
 
     public Question(String questionTitle, String questionDescription, Users user, Date questionAskedDate, List<QuestionTag> questionTags) {
         this.questionTitle = questionTitle;

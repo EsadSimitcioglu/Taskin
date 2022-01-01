@@ -51,14 +51,12 @@ public class QuestionService {
     //  return all questions which have those tag.
     public List<QuestionDTO> getAllQuestionWithTags(List<String> tags){
         List<QuestionDTO> listDto = new ArrayList<>();
-
         List<Question> list = questionRepository.getQuestionByQuestionTagsIn(tags);
 
         list.forEach(question -> {
             QuestionDTO dto = QuestionMapper.INSTANCE.questionToQuestionDTO(question);
             listDto.add(dto);
         });
-
         return listDto;
     }
 
