@@ -21,8 +21,11 @@ public class CommentService {
     }
 
     // Updating a comment
-    public void updateComment(Comment comment){
-        commentRepository.updateComment(comment,comment.getCommentID());
+    public void updateComment(Comment comment){commentRepository.updateComment(comment,comment.getCommentID());}
+
+    // Voting an answer UI needs to display updated vote count on the screen.
+    public void addVoteToComment(Integer commentID){
+        commentRepository.updateVoteCountByCommentID(commentID);
     }
 
 }

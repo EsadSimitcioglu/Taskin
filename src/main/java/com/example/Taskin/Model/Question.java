@@ -24,9 +24,6 @@ public class Question {
     @Column(name = "question_description")
     private String questionDescription;
 
-    @Column(name = "question_asked_from")
-    private String questionAskedFrom;
-
     @Column(name = "question_asked_date")
     private Date questionAskedDate;
 
@@ -39,6 +36,9 @@ public class Question {
     @Column(name = "question_vote_count")
     private Integer questionVoteCount;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Users user;
+
     @OneToMany(cascade = CascadeType.ALL)
     private List<Comment> questionComments;
 
@@ -48,12 +48,12 @@ public class Question {
     @ManyToMany(mappedBy = "questions", cascade = CascadeType.ALL)
     private List<QuestionTag> questionTags;
 
-    public Question(String questionTitle, String questionDescription, String questionAskedFrom, Date questionAskedDate, List<QuestionTag> questionTags) {
+    public Question(String questionTitle, String questionDescription, Users user, Date questionAskedDate, List<QuestionTag> questionTags) {
         this.questionTitle = questionTitle;
         this.questionDescription = questionDescription;
-        this.questionAskedFrom = questionAskedFrom;
         this.questionAskedDate = questionAskedDate;
         this.questionTags = questionTags;
+        this.user = user;
 
         this.questionAnswerCount = 0;
         this.questionViewCount = 0;
@@ -75,9 +75,6 @@ public class Question {
         return questionDescription;
     }
 
-    public String getQuestionAskedFrom() {
-        return questionAskedFrom;
-    }
 
     public List<QuestionTag> getQuestionTags() {
         return questionTags;
@@ -107,6 +104,10 @@ public class Question {
         return questionAnswer;
     }
 
+    public Users getUser() {
+        return user;
+    }
+
     @Override
     public String toString() {
         return "Question{" +
@@ -116,7 +117,6 @@ public class Question {
                 ", questionVoteCount=" + questionVoteCount +
                 ", questionTitle='" + questionTitle + '\'' +
                 ", questionDescription='" + questionDescription + '\'' +
-                ", questionAskedFrom='" + questionAskedFrom + '\'' +
                 ", questionAskedDate=" + questionAskedDate +
                 ", questionComments=" + questionComments +
                 ", questionAnswer=" + questionAnswer +

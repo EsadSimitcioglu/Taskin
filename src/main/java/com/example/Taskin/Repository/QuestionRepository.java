@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -16,6 +17,8 @@ public interface QuestionRepository extends JpaRepository<Question,Integer> {
 
     @Query("select q from Question q inner join q.questionTags qt where qt.questionTagName = ?1")
     List<Question> findQuestionWithTags(String tag);
+
+    //List<Question> findQuestionByQuestionTagsIn(Collection<List<QuestionTag>> questionTags);
 
     @Query("select q from Question q where q.questionID = ?1")
     String getQuestionInformation(Integer id);
@@ -30,6 +33,7 @@ public interface QuestionRepository extends JpaRepository<Question,Integer> {
     @Transactional
     void decreaseVoteCountByQuestionID(Integer questionID);
 
-
+    @Query("select q.questionVoteCount from Question q where q.questionID = ?1")
+    Integer getAllQuestionVoteCount(Integer questionID);
 
 }

@@ -4,9 +4,11 @@ import com.example.Taskin.Model.Answer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 
+@Repository
 public interface AnswerRepository extends JpaRepository<Answer,Integer> {
 
 
@@ -25,6 +27,8 @@ public interface AnswerRepository extends JpaRepository<Answer,Integer> {
     @Transactional
     void updateAnswer(Answer answer,Integer answerID);
 
+    @Query("select a.answerVoteCount from Answer a where a.answerID = ?1")
+    Integer getAllAnswerVoteCount(Integer answerID);
 
 
 }

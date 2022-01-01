@@ -28,5 +28,10 @@ public interface CommentRepository extends JpaRepository<Comment,Integer> {
     @Transactional
     void updateComment(Comment comment, Integer answerID);
 
+    @Modifying
+    @Query("update Comment c set c.commentVoteCount = c.commentVoteCount + 1 where c.commentID = ?1")
+    @Transactional
+    void updateVoteCountByCommentID(Integer commentID);
+
 
 }
