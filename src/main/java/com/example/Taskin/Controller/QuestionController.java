@@ -43,11 +43,8 @@ public class QuestionController {
                     description = "Unsuccessful operation")})
     public List<Question> getAllQuestionWithQuestionTag(@PathVariable("questionTag") String questionTag) {return questionService.getAllQuestionWithTag(questionTag);}
 
-    /*@GetMapping("/tag")
+    @GetMapping("/tag")
     public List<QuestionDTO> getAllQuestionWithQuestionTag(@RequestParam List<QuestionTag> questionTags) {return questionService.getAllQuestionWithTags(questionTags);}
-
-     */
-
 
     @GetMapping("/{id}/details")
     @Operation (summary = "GET question with ID",

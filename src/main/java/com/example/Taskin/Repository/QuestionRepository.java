@@ -6,6 +6,7 @@ import com.example.Taskin.Model.QuestionTag;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
@@ -18,7 +19,8 @@ public interface QuestionRepository extends JpaRepository<Question,Integer> {
     @Query("select q from Question q inner join q.questionTags qt where qt.questionTagName = ?1")
     List<Question> findQuestionWithTags(String tag);
 
-    //List<Question> findQuestionByQuestionTagsIn(Collection<List<QuestionTag>> questionTags);
+    @Query("select q from Question q inner join q.questionTags qt where qt.questionTagName IN :tags")
+    List<Question> getQuestionByQuestionTagsIn(@Param("tags") Collection<QuestionTag> questionTags);
 
     @Query("select q from Question q where q.questionID = ?1")
     String getQuestionInformation(Integer id);

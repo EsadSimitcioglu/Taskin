@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -63,9 +64,10 @@ public class QuestionService {
     }
 
   
-   /* public List<QuestionDTO> getAllQuestionWithTags(List<QuestionTag> tags){
+    public List<QuestionDTO> getAllQuestionWithTags(List<QuestionTag> tags){
         List<QuestionDTO> listDto = new ArrayList<>();
-        List<Question> list = questionRepository.findQuestionsByQuestionTags(tags);
+
+        List<Question> list = questionRepository.getQuestionByQuestionTagsIn(tags);
 
         list.forEach(question -> {
             QuestionDTO dto = new QuestionDTO();
@@ -83,7 +85,7 @@ public class QuestionService {
         return listDto;
     }
 
-    */
+
 
 
     // Getting all information about a specific question for displaying question details on the screen
