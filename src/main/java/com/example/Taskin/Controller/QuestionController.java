@@ -6,6 +6,9 @@ import com.example.Taskin.Model.Question;
 import com.example.Taskin.Model.dto.AnswerDTO;
 import com.example.Taskin.Model.dto.CommentDTO;
 import com.example.Taskin.Model.dto.QuestionDTO;
+import com.example.Taskin.Service.Mapper.AnswerMapper;
+import com.example.Taskin.Service.Mapper.CommentMapper;
+import com.example.Taskin.Service.Mapper.QuestionMapper;
 import com.example.Taskin.Service.QuestionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -111,8 +114,15 @@ public class QuestionController {
                 )
             }
     )
-    public Integer postQuestion(@RequestBody Question question){
-        return questionService.saveNewQuestion(question.getQuestionTitle(),question.getQuestionDescription(),question.getUser().getUserName(),question.getQuestionTags());
+    public Integer postQuestion(@RequestBody QuestionDTO question){
+        Question questionMapped = QuestionMapper.INSTANCE.questionDTOToQuestion(question);
+
+        return questionService.saveNewQuestion(
+                    questionMapped.getQuestionTitle(),
+                    questionMapped.getQuestionDescription(),
+                    questionMapped.getUser().getUserName(),
+                    question.getQuestionTags()
+        );
     }
 
     @PostMapping("/{id}/answers")
@@ -134,8 +144,9 @@ public class QuestionController {
                 )
             }
     )
-    public AnswerDTO postAnswerToQuestion(@PathVariable Integer id, @RequestBody Answer answer){
-        return questionService.saveNewAnswerToQuestionDTO(id,answer.getAnswerText(),answer.getUser().getUserName());
+    public AnswerDTO postAnswerToQuestion(@PathVariable Integer id, @RequestBody AnswerDTO answer){
+        Answer answerMapped = AnswerMapper.INSTANCE.answerDTOToAnswer(answer);
+        return questionService.saveNewAnswerToQuestionDTO(id,answerMapped.getAnswerText(),answerMapped.getUser().getUserName());
     }
 
     @PostMapping("/{id}/comments")
@@ -157,8 +168,13 @@ public class QuestionController {
                 )
             }
     )
-    public CommentDTO postCommentToQuestion(@PathVariable Integer id, @RequestBody Comment comment) {
-        return questionService.saveNewCommentToQuestionDTO(id, comment.getCommentText(), comment.getUser().getUserName());
+    public CommentDTO postCommentToQuestion(@PathVariable Integer id, @RequestBody CommentDTO comment) {
+        Comment commentMapped = CommentMapper.INSTANCE.commentDTOToComment(comment);
+        return questionService.saveNewCommentToQuestionDTO(
+                id,
+                commentMapped.getCommentText(),
+                commentMapped.getUser().getUserName()
+        );
     }
 
 

@@ -41,16 +41,7 @@ public class QuestionService {
         List<Question> list = questionRepository.findAll();
 
         list.forEach(question -> {
-            QuestionDTO dto = new QuestionDTO();
-            dto.setId(question.getQuestionID());
-            dto.setTitle(question.getQuestionTitle());
-            dto.setDescription(question.getQuestionDescription());
-            dto.setAuthor(question.getUser());
-            dto.setDate(question.getQuestionAskedDate());
-            dto.setAnswerCount(question.getQuestionAnswerCount());
-            dto.setViewCount(question.getQuestionViewCount());
-            dto.setVoteCount(question.getQuestionVoteCount());
-            dto.setQuestionTags(question.getQuestionTags());
+            QuestionDTO dto = QuestionMapper.INSTANCE.questionToQuestionDTO(question);
             listDto.add(dto);
         });
 

@@ -3,8 +3,11 @@ package com.example.Taskin.Controller;
 
 import com.example.Taskin.Model.Answer;
 import com.example.Taskin.Model.Comment;
+import com.example.Taskin.Model.dto.AnswerDTO;
 import com.example.Taskin.Model.dto.CommentDTO;
 import com.example.Taskin.Service.AnswerService;
+import com.example.Taskin.Service.Mapper.AnswerMapper;
+import com.example.Taskin.Service.Mapper.CommentMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -41,7 +44,10 @@ public class AnswerController {
                 )
             }
     )
-    public CommentDTO postCommentToAnswer(@PathVariable Integer id, @RequestBody Comment comment){return answerService.saveNewCommentToAnswer(id,comment.getCommentText(),comment.getUser().getUserName());}
+    public CommentDTO postCommentToAnswer(@PathVariable Integer id, @RequestBody CommentDTO comment){
+        Comment commentMapped = CommentMapper.INSTANCE.commentDTOToComment(comment);
+        return answerService.saveNewCommentToAnswer(id,commentMapped.getCommentText(),commentMapped.getUser().getUserName());
+    }
     
     @Operation (
             summary = "Update an answer",
@@ -62,8 +68,9 @@ public class AnswerController {
             }
     )
     @PutMapping
-    public void putAnswer(@RequestBody Answer answer){
-        answerService.updateAnswer(answer);
+    public void putAnswer(@RequestBody AnswerDTO answer){
+        Answer answerMapped = AnswerMapper.INSTANCE.answerDTOToAnswer(answer);
+        answerService.updateAnswer(answerMapped);
     }
 
     @Operation (

@@ -1,7 +1,9 @@
 package com.example.Taskin.Controller;
 
 import com.example.Taskin.Model.Comment;
+import com.example.Taskin.Model.dto.CommentDTO;
 import com.example.Taskin.Service.CommentService;
+import com.example.Taskin.Service.Mapper.CommentMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -79,7 +81,10 @@ public class CommentController {
                 )
             }
     )
-    public void putComment(@RequestBody Comment comment){commentService.updateComment(comment);}
+    public void putComment(@RequestBody CommentDTO comment) {
+        Comment commentMapped = CommentMapper.INSTANCE.commentDTOToComment(comment);
+        commentService.updateComment(commentMapped);
+    }
 
     @PutMapping("/{id}/votes")
     public void putVoteByOneToAnswer(@PathVariable("id") Integer id){
