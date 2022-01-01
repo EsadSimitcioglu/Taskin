@@ -67,9 +67,6 @@ public class QuestionController {
     )
     public List<QuestionDTO> getAllQuestionWithQuestionTag(@RequestParam List<String> questionTags) {return questionService.getAllQuestionWithTags(questionTags);}
 
-    @GetMapping("/tag")
-    public List<QuestionDTO> getAllQuestionWithQuestionTag(@RequestParam List<QuestionTag> questionTags) {return questionService.getAllQuestionWithTags(questionTags);}
-
     @GetMapping("/{id}/details")
     @Operation (
             summary = "GET question with ID",
@@ -160,9 +157,9 @@ public class QuestionController {
                 )
             }
     )
-    public CommentDTO postCommentToQuestion(@PathVariable Integer id, @RequestBody Comment comment){
-        return questionService.saveNewCommentToQuestionDTO(id,comment.getCommentText(),comment.getUser().getUserName());
-    
+    public CommentDTO postCommentToQuestion(@PathVariable Integer id, @RequestBody Comment comment) {
+        return questionService.saveNewCommentToQuestionDTO(id, comment.getCommentText(), comment.getUser().getUserName());
+    }
 
 
     @PutMapping("/{id}/votes/increases")
