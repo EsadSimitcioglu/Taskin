@@ -12,13 +12,12 @@ public interface QuestionMapper {
 
     @Mapping(source = "questionID", target = "id")
     @Mapping(source = "questionTitle", target = "title")
-    @Mapping(source = "questionID", target = "id")
-    @Mapping(source = "questionDescription", target = "description")
     @Mapping(source = "questionDescription", target = "description")
     @Mapping(source = "user", target = "author")
     @Mapping(source = "date", target = "date")
     @Mapping(source = "questionAnswerCount", target = "answerCount")
     @Mapping(source = "questionViewCount", target = "viewCount")
     @Mapping(source = "questionVoteCount", target = "voteCount")
-    QuestionDTO commentToCommentDTO(Question comment);
+    @Mapping(source = "questionTags", target = "questionTags")
+    QuestionDTO questionToQuestionDTO(Question question);
 }

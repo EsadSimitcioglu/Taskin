@@ -34,4 +34,12 @@ public class QuestionTag {
     private List<Question> questions;
 
     public QuestionTag() {}
+
+    public String getQuestionTagName() {
+        return questionTagName;
+    }
+
+    public void setQuestionTagName(String questionTagName) {
+        this.questionTagName = questionTagName;
+    }
 }

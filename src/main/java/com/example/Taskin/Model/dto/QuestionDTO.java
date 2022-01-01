@@ -1,8 +1,10 @@
 package com.example.Taskin.Model.dto;
 
+import com.example.Taskin.Model.QuestionTag;
 import com.example.Taskin.Model.Users;
 
 import java.util.Date;
+import java.util.List;
 
 public class QuestionDTO {
     protected int id;
@@ -13,6 +15,7 @@ public class QuestionDTO {
     protected int answerCount;
     protected int viewCount;
     protected int voteCount;
+    protected List<QuestionTag> questionTags;
 
     public int getId() {
         return id;
@@ -76,5 +79,13 @@ public class QuestionDTO {
 
     public void setVoteCount(int voteCount) {
         this.voteCount = voteCount;
+    }
+
+    public List<QuestionTag> getQuestionTags() {
+        return questionTags;
+    }
+
+    public void setQuestionTags(List<QuestionTag> questionTags) {
+        this.questionTags = questionTags;
     }
 }

@@ -24,16 +24,16 @@ public class Question {
     @Column(name = "question_description", nullable = false)
     private String questionDescription;
 
-    @Column(name = "question_asked_date", nullable = false)
+    @Column(name = "question_asked_date")
     private Date questionAskedDate;
 
-    @Column(name = "question_answer_count", nullable = false)
+    @Column(name = "question_answer_count")
     private Integer questionAnswerCount;
 
-    @Column(name = "question_view_count", nullable = false)
+    @Column(name = "question_view_count")
     private Integer questionViewCount;
 
-    @Column(name = "question_vote_count", nullable = false)
+    @Column(name = "question_vote_count")
     private Integer questionVoteCount;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -75,7 +75,6 @@ public class Question {
         return questionDescription;
     }
 
-
     public List<QuestionTag> getQuestionTags() {
         return questionTags;
     }
@@ -107,6 +106,8 @@ public class Question {
     public Users getUser() {
         return user;
     }
+
+
 
     @Override
     public String toString() {

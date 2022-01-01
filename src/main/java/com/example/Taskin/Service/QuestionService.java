@@ -50,6 +50,7 @@ public class QuestionService {
             dto.setAnswerCount(question.getQuestionAnswerCount());
             dto.setViewCount(question.getQuestionViewCount());
             dto.setVoteCount(question.getQuestionVoteCount());
+            dto.setQuestionTags(question.getQuestionTags());
             listDto.add(dto);
         });
 
@@ -63,7 +64,7 @@ public class QuestionService {
         List<Question> list = questionRepository.getQuestionByQuestionTagsIn(tags);
 
         list.forEach(question -> {
-            QuestionDTO dto = QuestionMapper.INSTANCE.commentToCommentDTO(question);
+            QuestionDTO dto = QuestionMapper.INSTANCE.questionToQuestionDTO(question);
             listDto.add(dto);
         });
 

@@ -24,7 +24,7 @@ public class Comment {
     @Column(name = "comment_date", nullable = false)
     private Date commentDate;
 
-    @Column(name = "comment_vote_count", nullable = false)
+    @Column(name = "comment_vote_count")
     private Integer commentVoteCount;
 
     @ManyToOne(cascade = CascadeType.ALL)

@@ -22,7 +22,7 @@ public class Answer {
     @Column(name = "answer_text", nullable = false)
     private String answerText;
 
-    @Column(name = "answer_vote_count", nullable = false)
+    @Column(name = "answer_vote_count")
     private Integer answerVoteCount;
 
     @Column(name = "answer_date", nullable = false)
