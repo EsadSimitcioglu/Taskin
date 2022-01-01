@@ -45,10 +45,10 @@ public class AnswerController {
             }
     )
     public CommentDTO postCommentToAnswer(@PathVariable Integer id, @RequestBody CommentDTO comment){
-        Comment commentMapped = CommentMapper.INSTANCE.commentDTOToComment(comment);
-        return answerService.saveNewCommentToAnswer(id,commentMapped.getCommentText(),commentMapped.getUser().getUserName());
+        return answerService.saveNewCommentToAnswer(id,comment.getText(),comment.getAuthor().getUserName());
     }
-    
+
+    @PutMapping
     @Operation (
             summary = "Update an answer",
             description = "Update answer's content to new values"
@@ -67,12 +67,12 @@ public class AnswerController {
                 ),
             }
     )
-    @PutMapping
     public void putAnswer(@RequestBody AnswerDTO answer){
         Answer answerMapped = AnswerMapper.INSTANCE.answerDTOToAnswer(answer);
         answerService.updateAnswer(answerMapped);
     }
 
+    @PutMapping("/{id}/votes/increases")
     @Operation (
             summary = "Upvote an answer",
             description = "Increase the positive vote count of an answer"
@@ -91,11 +91,11 @@ public class AnswerController {
                 )
             }
     )
-    @PutMapping("/{id}/votes/increases")
     public void putIncreaseVoteToAnswer(@PathVariable("id") Integer id){
         answerService.addVoteToAnswer(id);
     }
 
+    @PutMapping("/{id}/votes/decreases")
     @Operation (
             summary = "Down-vote an answer",
             description = "Increase the positive vote count of an answer"
@@ -114,7 +114,6 @@ public class AnswerController {
                 )
             }
     )
-    @PutMapping("/{id}/votes/decreases")
     public void putDecreaseVoteToAnswer(@PathVariable("id") Integer id){
         answerService.removeVoteFromAnswer(id);
     }

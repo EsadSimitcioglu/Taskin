@@ -78,7 +78,7 @@ public class QuestionService {
     // Adding a new answer for a question. In addition to the Question ID, UI should also send the following
     //fields to the back-end application: answer text and user. UI needs newly added answer’s id and
     //related question’s id.
-    public AnswerDTO saveNewAnswerToQuestionDTO(Integer questionID, String answerText, String username) {
+    public Answer saveNewAnswerToQuestionDTO(Integer questionID, String answerText, String username) {
         Date date = new Date(Calendar.getInstance().getTime().getTime());
         Users user = userRepository.getUserByUserName(username);
         Question question = questionRepository.getById(questionID);
@@ -88,21 +88,21 @@ public class QuestionService {
             return null;
         else {
             answerRepository.save(answer);
-            return AnswerMapper.INSTANCE.answerToAnswerDto(answer);
+            return answer;
         }
     }
 
     // Adding a new comment for a question. In addition to the Question ID, UI should also send the
     //following fields to the back-end application: comment text and user. UI needs newly added
     //comment’s id and related question’s id.
-    public CommentDTO saveNewCommentToQuestionDTO(Integer questionID, String commentText, String username){
+    public Comment saveNewCommentToQuestionDTO(Integer questionID, String commentText, String username){
         Date date = new Date(Calendar.getInstance().getTime().getTime());
         Users user = userRepository.getUserByUserName(username);
         Question question = questionRepository.getById(questionID);
         Comment comment = new Comment(commentText,user,date, question);
         commentRepository.save(comment);
 
-        return CommentMapper.INSTANCE.commentToCommentDTO(comment);
+        return comment;
 
     }
 

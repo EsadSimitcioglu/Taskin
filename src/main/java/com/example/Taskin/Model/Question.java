@@ -80,58 +80,101 @@ public class Question {
         return questionID;
     }
 
+    public void setQuestionID(Integer questionID) {
+        this.questionID = questionID;
+    }
+
     public String getQuestionTitle() {
         return questionTitle;
+    }
+
+    public void setQuestionTitle(String questionTitle) {
+        this.questionTitle = questionTitle;
     }
 
     public String getQuestionDescription() {
         return questionDescription;
     }
 
-    public List<QuestionTag> getQuestionTags() {
-        return questionTags;
-    }
-
-    public Integer getQuestionAnswerCount() {
-        return questionAnswerCount;
-    }
-
-    public Integer getQuestionViewCount() {
-        return questionViewCount;
-    }
-
-    public Integer getQuestionVoteCount() {
-        return questionVoteCount;
+    public void setQuestionDescription(String questionDescription) {
+        this.questionDescription = questionDescription;
     }
 
     public Date getQuestionAskedDate() {
         return questionAskedDate;
     }
 
-    public List<Comment> getQuestionComments() {
-        return questionComments;
+    public void setQuestionAskedDate(Date questionAskedDate) {
+        this.questionAskedDate = questionAskedDate;
     }
 
-    public List<Answer> getQuestionAnswer() {
-        return questionAnswer;
+    public Integer getQuestionAnswerCount() {
+        return questionAnswerCount;
+    }
+
+    public void setQuestionAnswerCount(Integer questionAnswerCount) {
+        this.questionAnswerCount = questionAnswerCount;
+    }
+
+    public Integer getQuestionViewCount() {
+        return questionViewCount;
+    }
+
+    public void setQuestionViewCount(Integer questionViewCount) {
+        this.questionViewCount = questionViewCount;
+    }
+
+    public Integer getQuestionVoteCount() {
+        return questionVoteCount;
+    }
+
+    public void setQuestionVoteCount(Integer questionVoteCount) {
+        this.questionVoteCount = questionVoteCount;
     }
 
     public Users getUser() {
         return user;
     }
 
+    public void setUser(Users user) {
+        this.user = user;
+    }
 
+    public List<Comment> getQuestionComments() {
+        return questionComments;
+    }
+
+    public void setQuestionComments(List<Comment> questionComments) {
+        this.questionComments = questionComments;
+    }
+
+    public List<Answer> getQuestionAnswer() {
+        return questionAnswer;
+    }
+
+    public void setQuestionAnswer(List<Answer> questionAnswer) {
+        this.questionAnswer = questionAnswer;
+    }
+
+    public List<QuestionTag> getQuestionTags() {
+        return questionTags;
+    }
+
+    public void setQuestionTags(List<QuestionTag> questionTags) {
+        this.questionTags = questionTags;
+    }
 
     @Override
     public String toString() {
         return "Question{" +
                 "questionID=" + questionID +
-                ", questionAnswerCount=" + questionAnswerCount +
-                ", questionViewCount=" + questionViewCount +
-                ", questionVoteCount=" + questionVoteCount +
                 ", questionTitle='" + questionTitle + '\'' +
                 ", questionDescription='" + questionDescription + '\'' +
                 ", questionAskedDate=" + questionAskedDate +
+                ", questionAnswerCount=" + questionAnswerCount +
+                ", questionViewCount=" + questionViewCount +
+                ", questionVoteCount=" + questionVoteCount +
+                ", user=" + user +
                 ", questionComments=" + questionComments +
                 ", questionAnswer=" + questionAnswer +
                 ", questionTags=" + questionTags +

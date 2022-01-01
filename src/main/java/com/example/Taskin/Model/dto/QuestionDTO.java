@@ -3,7 +3,7 @@ package com.example.Taskin.Model.dto;
 import com.example.Taskin.Model.QuestionTag;
 import com.example.Taskin.Model.Users;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 public class QuestionDTO {
@@ -87,5 +87,20 @@ public class QuestionDTO {
 
     public void setQuestionTags(List<QuestionTag> questionTags) {
         this.questionTags = questionTags;
+    }
+
+    @Override
+    public String toString() {
+        return "QuestionDTO{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", author=" + author +
+                ", date=" + date +
+                ", answerCount=" + answerCount +
+                ", viewCount=" + viewCount +
+                ", voteCount=" + voteCount +
+                ", questionTags=" + questionTags +
+                '}';
     }
 }

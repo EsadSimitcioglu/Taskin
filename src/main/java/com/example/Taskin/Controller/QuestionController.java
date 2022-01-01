@@ -93,7 +93,6 @@ public class QuestionController {
     )
     public String getQuestionInformationWithQuestionID(@PathVariable("id") Integer id) {return questionService.getQuestionInformationWithQuestionID(id);}
 
-
     @GetMapping("/votes/{id}")
     public Integer getQuestionVoteCount(@PathVariable("id") Integer id){return questionService.showQuestionVoteCount(id);};
 
@@ -116,14 +115,12 @@ public class QuestionController {
                 )
             }
     )
-    public Integer postQuestion(@RequestBody QuestionDTO question){
-        Question questionMapped = QuestionMapper.INSTANCE.questionDTOToQuestion(question);
-
+    public Integer postQuestion(@RequestBody Question question){
         return questionService.saveNewQuestion(
-                    questionMapped.getQuestionTitle(),
-                    questionMapped.getQuestionDescription(),
-                    questionMapped.getUser().getUserName(),
-                    question.getQuestionTags()
+                question.getQuestionTitle(),
+                question.getQuestionDescription(),
+                question.getUser().getUserName(),
+                question.getQuestionTags()
         );
     }
 
@@ -146,9 +143,8 @@ public class QuestionController {
                 )
             }
     )
-    public AnswerDTO postAnswerToQuestion(@PathVariable Integer id, @RequestBody AnswerDTO answer){
-        Answer answerMapped = AnswerMapper.INSTANCE.answerDTOToAnswer(answer);
-        return questionService.saveNewAnswerToQuestionDTO(id,answerMapped.getAnswerText(),answerMapped.getUser().getUserName());
+    public Answer postAnswerToQuestion(@PathVariable Integer id, @RequestBody Answer answer){
+        return questionService.saveNewAnswerToQuestionDTO(id,answer.getAnswerText(),answer.getUser().getUserName());
     }
 
     @PostMapping("/{id}/comments")
@@ -170,15 +166,13 @@ public class QuestionController {
                 )
             }
     )
-    public CommentDTO postCommentToQuestion(@PathVariable Integer id, @RequestBody CommentDTO comment) {
-        Comment commentMapped = CommentMapper.INSTANCE.commentDTOToComment(comment);
+    public Comment postCommentToQuestion(@PathVariable Integer id, @RequestBody Comment comment) {
         return questionService.saveNewCommentToQuestionDTO(
                 id,
-                commentMapped.getCommentText(),
-                commentMapped.getUser().getUserName()
+                comment.getCommentText(),
+                comment.getUser().getUserName()
         );
     }
-
 
     @PutMapping("/{id}/votes/increases")
     @Operation (

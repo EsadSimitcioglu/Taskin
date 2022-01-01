@@ -1,18 +1,20 @@
 package com.example.Taskin.Model.dto;
 
+import com.example.Taskin.Model.Comment;
 import com.example.Taskin.Model.Question;
 import com.example.Taskin.Model.Users;
 
-import java.util.Date;
+import java.sql.Date;
+import java.util.List;
 
 public class AnswerDTO {
-    protected int id;
+    protected Integer id;
     protected String answerText;
-    protected int voteCount;
-    protected String answerFrom;
+    protected Integer voteCount;
     protected Date answerDate;
     protected Users user;
     protected Question question;
+    protected List<Comment> answerComments;
 
     public int getId() {
         return id;
@@ -38,14 +40,6 @@ public class AnswerDTO {
         this.voteCount = voteCount;
     }
 
-    public String getAnswerFrom() {
-        return answerFrom;
-    }
-
-    public void setAnswerFrom(String answerFrom) {
-        this.answerFrom = answerFrom;
-    }
-
     public Date getAnswerDate() {
         return answerDate;
     }
@@ -68,5 +62,21 @@ public class AnswerDTO {
 
     public void setQuestion(Question question) {
         this.question = question;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setVoteCount(Integer voteCount) {
+        this.voteCount = voteCount;
+    }
+
+    public List<Comment> getAnswerComments() {
+        return answerComments;
+    }
+
+    public void setAnswerComments(List<Comment> answerComments) {
+        this.answerComments = answerComments;
     }
 }

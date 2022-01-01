@@ -10,12 +10,8 @@ import org.mapstruct.factory.Mappers;
 public interface AnswerMapper {
 	AnswerMapper INSTANCE = Mappers.getMapper(AnswerMapper.class);
 
-
-	@Mapping(source = "answerText", target = "answerText")
+	@Mapping(source = "answerID", target = "id")
 	@Mapping(source = "answerVoteCount", target = "voteCount")
-	@Mapping(source = "answerDate", target = "answerDate")
-	@Mapping(source = "user", target = "user")
-	@Mapping(source = "question", target = "question")
 	AnswerDTO answerToAnswerDto(Answer answer);
 
 	@Mapping(source = "answerText", target = "answerText")
