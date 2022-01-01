@@ -19,7 +19,7 @@ public interface QuestionRepository extends JpaRepository<Question,Integer> {
     @Query("select q from Question q inner join q.questionTags qt where qt.questionTagName IN :tags")
     List<Question> getQuestionByQuestionTagsIn(@Param("tags") List<String> questionTags);
 
-    @Query("select q from Question q where q.questionID = ?1")
+    @Query("select q.questionDescription from Question q where q.questionID = ?1")
     String getQuestionInformation(Integer id);
 
     @Modifying
