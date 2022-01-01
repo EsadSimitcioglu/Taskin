@@ -34,15 +34,10 @@ public class AnswerService {
         Users user = userRepository.getUserByUserName(username);
         Answer answer = answerRepository.getById(answerID);
 
-        if(user.equals(answer.getUser()))
-            return null;
-
-        else{
-            Date date = new Date(Calendar.getInstance().getTime().getTime());
-            Comment comment = new Comment(commentText,user,date,answer);
-            commentRepository.save(comment);
-            return CommentMapper.INSTANCE.commentToCommentDTO(comment);
-        }
+        Date date = new Date(Calendar.getInstance().getTime().getTime());
+        Comment comment = new Comment(commentText,user,date,answer);
+        commentRepository.save(comment);
+        return CommentMapper.INSTANCE.commentToCommentDTO(comment);
     }
 
     // Voting an answer UI needs to display updated vote count on the screen.

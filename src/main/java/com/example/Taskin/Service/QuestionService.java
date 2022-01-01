@@ -84,10 +84,14 @@ public class QuestionService {
         Date date = new Date(Calendar.getInstance().getTime().getTime());
         Users user = userRepository.getUserByUserName(username);
         Question question = questionRepository.getById(questionID);
-        Answer answer = new Answer(answerText,user,date,question);
-        answerRepository.save(answer);
+        Answer answer = new Answer(answerText, user, date, question);
 
-        return AnswerMapper.INSTANCE.answerToAnswerDto(answer);
+        if(user.equals(answer.getUser()))
+            return null;
+        else {
+            answerRepository.save(answer);
+            return AnswerMapper.INSTANCE.answerToAnswerDto(answer);
+        }
     }
 
     // Adding a new comment for a question. In addition to the Question ID, UI should also send the
