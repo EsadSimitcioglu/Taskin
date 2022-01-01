@@ -37,7 +37,7 @@ public class Question {
     private Integer questionVoteCount;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    private User user;
+    private Users user;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Comment> questionComments;
@@ -48,7 +48,7 @@ public class Question {
     @ManyToMany(mappedBy = "questions", cascade = CascadeType.ALL)
     private List<QuestionTag> questionTags;
 
-    public Question(String questionTitle, String questionDescription, User user, Date questionAskedDate, List<QuestionTag> questionTags) {
+    public Question(String questionTitle, String questionDescription, Users user, Date questionAskedDate, List<QuestionTag> questionTags) {
         this.questionTitle = questionTitle;
         this.questionDescription = questionDescription;
         this.questionAskedDate = questionAskedDate;
@@ -104,7 +104,7 @@ public class Question {
         return questionAnswer;
     }
 
-    public User getUser() {
+    public Users getUser() {
         return user;
     }
 

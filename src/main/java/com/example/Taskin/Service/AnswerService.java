@@ -2,7 +2,7 @@ package com.example.Taskin.Service;
 
 import com.example.Taskin.Model.Answer;
 import com.example.Taskin.Model.Comment;
-import com.example.Taskin.Model.User;
+import com.example.Taskin.Model.Users;
 import com.example.Taskin.Repository.AnswerRepository;
 import com.example.Taskin.Repository.CommentRepository;
 import com.example.Taskin.Repository.UserRepository;
@@ -29,7 +29,7 @@ public class AnswerService {
     //comment’s id and related answer’s id.
     public Comment saveNewCommentToAnswer(Integer answerID, String commentText, String username){
 
-        User user = userRepository.getUserByUserName(username);
+        Users user = userRepository.getUserByUserName(username);
         Answer answer = answerRepository.getById(answerID);
 
         if(user.equals(answer.getUser()))

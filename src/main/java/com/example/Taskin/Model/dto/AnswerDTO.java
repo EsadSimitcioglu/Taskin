@@ -1,7 +1,7 @@
 package com.example.Taskin.Model.dto;
 
 import com.example.Taskin.Model.Question;
-import com.example.Taskin.Model.User;
+import com.example.Taskin.Model.Users;
 
 import java.util.Date;
 
@@ -11,7 +11,7 @@ public class AnswerDTO {
     protected int voteCount;
     protected String answerFrom;
     protected Date answerDate;
-    protected User user;
+    protected Users user;
     protected Question question;
 
     public int getId() {
@@ -54,11 +54,11 @@ public class AnswerDTO {
         this.answerDate = answerDate;
     }
 
-    public User getUser() {
+    public Users getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Users user) {
         this.user = user;
     }
 

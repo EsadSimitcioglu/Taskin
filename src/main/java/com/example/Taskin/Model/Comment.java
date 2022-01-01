@@ -28,7 +28,7 @@ public class Comment {
     private Integer commentVoteCount;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    private User user;
+    private Users user;
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
@@ -39,14 +39,14 @@ public class Comment {
     private Answer answer;
 
 
-    public Comment(String commentText,User user, Date commentDate,Question question) {
+    public Comment(String commentText, Users user, Date commentDate, Question question) {
         this.commentText = commentText;
         this.commentDate = commentDate;
         this.question = question;
         this.user = user;
     }
 
-    public Comment(String commentText, User user, Date commentDate, Answer answer) {
+    public Comment(String commentText, Users user, Date commentDate, Answer answer) {
         this.commentText = commentText;
         this.commentDate = commentDate;
         this.answer = answer;
@@ -103,11 +103,11 @@ public class Comment {
         this.commentVoteCount = commentVoteCount;
     }
 
-    public User getUser() {
+    public Users getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Users user) {
         this.user = user;
     }
 }

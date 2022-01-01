@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class User {
+public class Users {
 
     @Id
     @SequenceGenerator(
@@ -31,12 +31,12 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Answer> answerList;
 
-    public User(String userName, String userPassword) {
+    public Users(String userName, String userPassword) {
         this.userName = userName;
         this.userPassword = userPassword;
     }
 
-    public User() {
+    public Users() {
 
     }
 

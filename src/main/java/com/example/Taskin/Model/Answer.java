@@ -29,7 +29,7 @@ public class Answer {
     private Date answerDate;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    private User user;
+    private Users user;
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
@@ -38,7 +38,7 @@ public class Answer {
     @OneToMany(mappedBy = "answer", cascade = CascadeType.ALL)
     private List<Comment> answerComments;
 
-    public Answer(String answerText, User user, Date answerDate,Question question) {
+    public Answer(String answerText, Users user, Date answerDate, Question question) {
         this.answerText = answerText;
         this.answerDate = answerDate;
         this.question = question;
@@ -98,11 +98,11 @@ public class Answer {
         this.answerComments = answerComments;
     }
 
-    public User getUser() {
+    public Users getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Users user) {
         this.user = user;
     }
 }

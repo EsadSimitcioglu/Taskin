@@ -63,7 +63,7 @@ public class QuestionService {
     }
 
   
-    public List<QuestionDTO> getAllQuestionWithTags(List<QuestionTag> tags){
+   /* public List<QuestionDTO> getAllQuestionWithTags(List<QuestionTag> tags){
         List<QuestionDTO> listDto = new ArrayList<>();
         List<Question> list = questionRepository.findQuestionsByQuestionTags(tags);
 
@@ -83,6 +83,9 @@ public class QuestionService {
         return listDto;
     }
 
+    */
+
+
     // Getting all information about a specific question for displaying question details on the screen
     public String getQuestionInformationWithQuestionID(Integer questionID){
         return questionRepository.getQuestionInformation(questionID);
@@ -92,7 +95,7 @@ public class QuestionService {
     //backend. UI should get newly added question’s id.
     public Integer saveNewQuestion(String questionTitle, String questionDescription, String username, List<QuestionTag> questionTags) {
         Date date = new Date(Calendar.getInstance().getTime().getTime());
-        User user = userRepository.getUserByUserName(username);
+        Users user = userRepository.getUserByUserName(username);
         Question question = new Question(questionTitle,questionDescription,user,date,questionTags);
         questionRepository.save(question);
         return question.getQuestionID();
@@ -103,7 +106,7 @@ public class QuestionService {
     //related question’s id.
     public Answer saveNewAnswerToQuestion(Integer questionID,String answerText, String username){
         Date date = new Date(Calendar.getInstance().getTime().getTime());
-        User user = userRepository.getUserByUserName(username);
+        Users user = userRepository.getUserByUserName(username);
         Question question = questionRepository.getById(questionID);
         Answer answer = new Answer(answerText,user,date,question);
         answerRepository.save(answer);
@@ -114,7 +117,7 @@ public class QuestionService {
   
     public AnswerDTO saveNewAnswerToQuestionDTO(Integer questionID, String answerText, String username) {
         Date date = new Date(Calendar.getInstance().getTime().getTime());
-        User user = userRepository.getUserByUserName(username);
+        Users user = userRepository.getUserByUserName(username);
         Question question = questionRepository.getById(questionID);
         Answer answer = new Answer(answerText,user,date,question);
         answerRepository.save(answer);
@@ -133,7 +136,7 @@ public class QuestionService {
     //comment’s id and related question’s id.
     public Comment saveNewCommentToQuestion(Integer questionID, String commentText, String username){
         Date date = new Date(Calendar.getInstance().getTime().getTime());
-        User user = userRepository.getUserByUserName(username);
+        Users user = userRepository.getUserByUserName(username);
         Comment comment = new Comment(commentText,user,date, questionRepository.getById(questionID));
         commentRepository.save(comment);
         return comment;
@@ -143,7 +146,7 @@ public class QuestionService {
   
     public CommentDTO saveNewCommentToQuestionDTO(Integer questionID, String commentText, String username){
         Date date = new Date(Calendar.getInstance().getTime().getTime());
-        User user = userRepository.getUserByUserName(username);
+        Users user = userRepository.getUserByUserName(username);
         Question question = questionRepository.getById(questionID);
         Comment comment = new Comment(commentText,user,date, question);
         commentRepository.save(comment);
