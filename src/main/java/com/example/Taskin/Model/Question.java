@@ -1,5 +1,7 @@
 package com.example.Taskin.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
@@ -40,9 +42,11 @@ public class Question {
 	private Users user;
 
 	@OneToMany(cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<Comment> questionComments;
 
 	@OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<Answer> questionAnswer;
 
 	@ManyToMany(cascade = CascadeType.ALL)

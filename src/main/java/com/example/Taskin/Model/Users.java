@@ -1,5 +1,7 @@
 package com.example.Taskin.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -23,12 +25,15 @@ public class Users {
 	private String userPassword;
 
 	@OneToMany(mappedBy = "user")
+	@JsonIgnore
 	private List<Question> questionList;
 
 	@OneToMany(mappedBy = "user")
+	@JsonIgnore
 	private List<Comment> commentList;
 
 	@OneToMany(mappedBy = "user")
+	@JsonIgnore
 	private List<Answer> answerList;
 
 	public Users(String userName, String userPassword) {

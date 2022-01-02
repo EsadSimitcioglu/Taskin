@@ -48,6 +48,7 @@ public class QuestionController {
     public List<QuestionDTO> getAllQuestion() {return questionService.getAllQuestionDTO();}
 
 
+    @GetMapping("/tag/{questionTag}")
     @Operation (
             summary = "GET questions that have tag",
             description = "GET questions that a have a question tag"
