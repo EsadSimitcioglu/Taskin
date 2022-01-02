@@ -84,7 +84,7 @@ public class QuestionService {
         Question question = questionRepository.getById(questionID);
         Answer answer = new Answer(answerText, user, date, question);
 
-        if(user.equals(answer.getUser()))
+        if(user.equals(question.getUser()))
             return null;
         else {
             answerRepository.save(answer);

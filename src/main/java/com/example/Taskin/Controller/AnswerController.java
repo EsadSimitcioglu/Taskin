@@ -44,8 +44,12 @@ public class AnswerController {
                 )
             }
     )
-    public CommentDTO postCommentToAnswer(@PathVariable Integer id, @RequestBody CommentDTO comment){
-        return answerService.saveNewCommentToAnswer(id,comment.getText(),comment.getAuthor().getUserName());
+    public CommentDTO postCommentToAnswer(@PathVariable Integer id, @RequestBody Comment comment) {
+        return answerService.saveNewCommentToAnswer(
+                id,
+                comment.getCommentText(),
+                comment.getUser().getUserName()
+        );
     }
 
     @PutMapping
