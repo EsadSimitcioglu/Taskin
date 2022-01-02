@@ -88,7 +88,28 @@ public class QuestionController {
                 )
             }
     )
-    public String getQuestionInformationWithQuestionID(@PathVariable("id") Integer id) {return questionService.getQuestionInformationWithQuestionID(id);}
+    public String getQuestionDescriptionWithQuestionID(@PathVariable("id") Integer id) {return questionService.getQuestionDescriptionWithQuestionID(id);}
+
+    @GetMapping("/{id}")
+    @Operation (
+            summary = "GET question with ID",
+            description = "GET question content with question's ID"
+    )
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "201",
+                            description = "Successful operation",
+                            content = @Content(schema = @Schema(implementation = Question.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "401",
+                            description = "Unsuccessful operation",
+                            content = @Content(schema = @Schema(implementation = Question.class))
+                    )
+            }
+    )
+    public Question getQuestionInformationWithQuestionID(@PathVariable("id") Integer id) {return questionService.getQuestionInformationWithQuestionID(id);}
 
     @GetMapping("/votes/{id}")
     public Integer getQuestionVoteCount(@PathVariable("id") Integer id){return questionService.showQuestionVoteCount(id);};
@@ -188,6 +209,7 @@ public class QuestionController {
     )
     public void putIncreaseVoteToQuestion(@PathVariable("id") Integer id){
         questionService.addVoteToQuestion(id);
+
     }
 
     @PutMapping("/{id}/votes/decreases")

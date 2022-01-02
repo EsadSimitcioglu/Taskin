@@ -38,6 +38,7 @@ public class QuestionService {
 
         list.forEach(question -> {
             QuestionDTO dto = QuestionMapper.INSTANCE.questionToQuestionDTO(question);
+            dto.setDescription(dto.getDescription().substring(100));
             listDto.add(dto);
         });
 
@@ -57,7 +58,12 @@ public class QuestionService {
     }
 
     // Getting all information about a specific question for displaying question details on the screen
-    public String getQuestionInformationWithQuestionID(Integer questionID){
+    public String getQuestionDescriptionWithQuestionID(Integer questionID){
+        return questionRepository.getQuestionDescription(questionID);
+    }
+
+    // Getting all information about a specific question for displaying question details on the screen
+    public Question getQuestionInformationWithQuestionID(Integer questionID){
         return questionRepository.getQuestionInformation(questionID);
     }
 
@@ -102,6 +108,10 @@ public class QuestionService {
 
     }
 
+    public void getVoteOfQuestion(Integer questionID){
+
+    }
+
     // Voting a question UI needs to display updated vote count on the screen.
     public void addVoteToQuestion(Integer questionID){
         questionRepository.increaseVoteCountByQuestionID(questionID);
@@ -113,7 +123,7 @@ public class QuestionService {
     }
 
     // Display the question's vote count
-    public Integer showQuestionVoteCount(Integer questionID) {return questionRepository.getAllQuestionVoteCount(questionID);}
+    public Integer showQuestionVoteCount(Integer questionID) {return questionRepository.getQuestionVoteCount(questionID);}
 
     // Display all comments for a spesific question
     public CommentDTO getCommentsFromQuestion(Integer questionID){

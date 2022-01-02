@@ -37,5 +37,8 @@ public interface CommentRepository extends JpaRepository<Comment,Integer> {
     @Transactional
     void decreaseVoteCountByCommentID(Integer commentID);
 
+    @Query("select c.commentVoteCount from Comment c where c.commentID = ?1")
+    Integer getQuestionVoteCount(Integer commentID);
+
 
 }

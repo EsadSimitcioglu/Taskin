@@ -30,4 +30,7 @@ public class CommentService {
         commentRepository.decreaseVoteCountByCommentID(commentID);
     }
 
+    // Display the answer's vote count
+    public Integer showCommentVoteCount(Integer commentID) {return commentRepository.getQuestionVoteCount(commentID);}
+
 }

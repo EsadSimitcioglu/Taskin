@@ -73,4 +73,7 @@ public class CommentController {
         commentService.decreaseVoteToComment(id);
     }
 
+    @GetMapping("/votes/{id}")
+    public Integer getCommentVoteCount(@PathVariable("id") Integer id){return commentService.showCommentVoteCount(id);};
+
 }

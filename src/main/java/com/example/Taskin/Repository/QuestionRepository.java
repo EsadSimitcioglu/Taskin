@@ -33,7 +33,10 @@ public interface QuestionRepository extends JpaRepository<Question,Integer> {
     List<Question> getQuestionByQuestionTagsIn(@Param("tags") List<String> questionTags);
 
     @Query("select q.questionDescription from Question q where q.questionID = ?1")
-    String getQuestionInformation(Integer id);
+    String getQuestionDescription(Integer id);
+
+    @Query("select q from Question q where q.questionID = ?1")
+    Question getQuestionInformation(Integer id);
 
     @Modifying
     @Query("update Question q set q.questionVoteCount = q.questionVoteCount + 1 where q.questionID = ?1")
@@ -46,9 +49,10 @@ public interface QuestionRepository extends JpaRepository<Question,Integer> {
     void decreaseVoteCountByQuestionID(Integer questionID);
 
     @Query("select q.questionVoteCount from Question q where q.questionID = ?1")
-    Integer getAllQuestionVoteCount(Integer questionID);
+    Integer getQuestionVoteCount(Integer questionID);
 
     @Query("select q.questionComments from Question q where q.questionID = ?1")
     List<Comment> getCommentsWithQuestionID(Integer questionID);
+
 
 }
