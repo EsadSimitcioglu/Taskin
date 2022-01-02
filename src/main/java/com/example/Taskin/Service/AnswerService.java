@@ -58,7 +58,7 @@ public class AnswerService {
 
     // Updating an answer
     public void updateAnswer(Answer answer){
-        answerRepository.updateAnswer(answer,answer.getAnswerID());
+        answerRepository.updateAnswer(answer.getAnswerText(),answer.getAnswerID());
     }
 
     // Display the answer's vote count

@@ -1,5 +1,7 @@
 package com.example.Taskin.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -19,6 +21,7 @@ public class QuestionTag {
 	@Column(name = "question_tag_name", nullable = false, length = 30)
 	private String questionTagName;
 
+	@JsonIgnore
 	@ManyToMany(mappedBy = "questionTags", cascade = CascadeType.ALL)
 	private List<Question> questions;
 

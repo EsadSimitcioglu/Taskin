@@ -48,28 +48,26 @@ public class QuestionController {
     public List<QuestionDTO> getAllQuestion() {return questionService.getAllQuestionDTO();}
 
 
-    @GetMapping("/tag/{questionTag}")
+    @GetMapping("/tags/{questionTags}")
     @Operation (
             summary = "GET questions that have tag",
             description = "GET questions that a have a question tag"
     )
     @ApiResponses(
             value = {
-                @ApiResponse(
-                        responseCode = "201",
-                        description = "Successful operation",
-                        content = @Content(schema = @Schema(implementation = Question.class))
-                ),
-                @ApiResponse(
-                        responseCode = "401",
-                        description = "Unsuccessful operation",
-                        content = @Content(schema = @Schema(implementation = Question.class))
-                )
+                    @ApiResponse(
+                            responseCode = "201",
+                            description = "Successful operation",
+                            content = @Content(schema = @Schema(implementation = Question.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "401",
+                            description = "Unsuccessful operation",
+                            content = @Content(schema = @Schema(implementation = Question.class))
+                    )
             }
     )
-    public List<QuestionDTO> getAllQuestionWithQuestionTag(@RequestParam List<String> questionTags) {
-        return questionService.getAllQuestionWithTags(questionTags);
-    }
+    public List<QuestionDTO> getAllQuestionWithQuestionTag(@RequestParam List<String> questionTags) {return questionService.getAllQuestionWithTags(questionTags);}
 
     @GetMapping("/{id}/details")
     @Operation (
@@ -188,7 +186,7 @@ public class QuestionController {
                 )
             }
     )
-    public void putIncreaseVoteToAnswer(@PathVariable("id") Integer id){
+    public void putIncreaseVoteToQuestion(@PathVariable("id") Integer id){
         questionService.addVoteToQuestion(id);
     }
 
@@ -212,7 +210,7 @@ public class QuestionController {
                 )
             }
     )
-    public void putDecreaseVoteToAnswer(@PathVariable("id") Integer id){
+    public void putDecreaseVoteToQuestion(@PathVariable("id") Integer id){
         questionService.removeVoteFromQuestion(id);
     }
 }

@@ -19,4 +19,5 @@ public interface AnswerMapper {
 	@Mapping(source = "question", target = "question")
 	@Mapping(source = "voteCount", target = "answerVoteCount")
 	Answer answerDTOToAnswer(AnswerDTO answerDTO);
+
 }

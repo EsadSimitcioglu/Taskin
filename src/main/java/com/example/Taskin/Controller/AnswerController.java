@@ -66,9 +66,8 @@ public class AnswerController {
                 ),
             }
     )
-    public void putAnswer(@RequestBody AnswerDTO answer){
-        Answer answerMapped = AnswerMapper.INSTANCE.answerDTOToAnswer(answer);
-        answerService.updateAnswer(answerMapped);
+    public void putAnswer(@RequestBody Answer answer){
+        answerService.updateAnswer(answer);
     }
 
     @PutMapping("/{id}/votes/increases")

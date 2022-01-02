@@ -12,6 +12,7 @@ public class QuestionDTO {
     protected Integer voteCount = 0;
     protected Users author;
     protected Date date;
+    protected List<QuestionTag> questionTags;
 
     public Integer getVoteCount() {
         return voteCount;
@@ -51,5 +52,13 @@ public class QuestionDTO {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public List<QuestionTag> getQuestionTags() {
+        return questionTags;
+    }
+
+    public void setQuestionTags(List<QuestionTag> questionTags) {
+        this.questionTags = questionTags;
     }
 }

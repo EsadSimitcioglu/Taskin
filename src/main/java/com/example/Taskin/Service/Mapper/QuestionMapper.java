@@ -15,6 +15,7 @@ public interface QuestionMapper {
     @Mapping(source = "user", target = "author")
     @Mapping(source = "questionAskedDate", target = "date")
     @Mapping(source = "questionVoteCount", target = "voteCount")
+    @Mapping(source = "questionTags", target = "questionTags")
     QuestionDTO questionToQuestionDTO(Question question);
 
     @Mapping(source = "title", target = "questionTitle")
