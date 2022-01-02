@@ -1,9 +1,7 @@
 package com.example.Taskin.Controller;
 
 import com.example.Taskin.Model.Comment;
-import com.example.Taskin.Model.dto.CommentDTO;
 import com.example.Taskin.Service.CommentService;
-import com.example.Taskin.Service.Mapper.CommentMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -19,10 +17,10 @@ public class CommentController {
     @Autowired
     CommentService commentService;
 
-    @DeleteMapping("/{id}/questions")
+    @DeleteMapping("/{id}")
     @Operation(
             summary = "Delete a comment",
-            description = "Remove a comment by question id from the database"
+            description = "Remove a comment by id from the database"
     )
     @ApiResponses(
             value = {
@@ -38,31 +36,10 @@ public class CommentController {
                 )
             }
     )
-    public void deleteCommentWithQuestionIDFromComment(@PathVariable Integer id){commentService.deleteCommentWithQuestionID(id);}
+    public void deleteCommentWithIDFromComment(@PathVariable Integer id){commentService.deleteCommentWithID(id);}
 
 
-    @DeleteMapping("/{id}/answers")
-    @Operation (
-            summary = "Delete a comment",
-            description = "Remove a comment by answer id from the database"
-    )
-    @ApiResponses(
-            value = {
-                @ApiResponse(
-                        responseCode = "201",
-                        description = "Successful operation",
-                        content = @Content(schema = @Schema(implementation = Comment.class))
-                ),
-                @ApiResponse(
-                        responseCode = "401",
-                        description = "Unsuccessful operation",
-                        content = @Content(schema = @Schema(implementation = Comment.class))
-                )
-            }
-    )
-    public void deleteCommentWithAnswerIDFromComment(@PathVariable Integer id){commentService.deleteCommentWithAnswerID(id);}
-
-    @PutMapping
+    @PutMapping(path = "/{id}")
     @Operation (
             summary = "Update a comment",
             description = "Update the content of a comment in the database"
@@ -81,14 +58,19 @@ public class CommentController {
                 )
             }
     )
-    public void putComment(@RequestBody CommentDTO comment) {
-        Comment commentMapped = CommentMapper.INSTANCE.commentDTOToComment(comment);
-        commentService.updateComment(commentMapped);
+    public void putComment(@RequestBody Comment comment, @PathVariable Integer id) {
+        commentService.updateComment(comment, id);
     }
 
-    @PutMapping("/{id}/votes")
-    public void putVoteByOneToAnswer(@PathVariable("id") Integer id){
-        commentService.addVoteToComment(id);
+    @PutMapping("/{id}/votes/increase")
+    public void increaseVoteByOneToAnswer(@PathVariable("id") Integer id){
+        commentService.increaseVoteToComment(id);
+    }
+
+    @PutMapping("/{id}/votes/decrease")
+    public void decreaseVoteByOneToAnswer(@PathVariable("id") Integer id)
+    {
+        commentService.decreaseVoteToComment(id);
     }
 
 }
