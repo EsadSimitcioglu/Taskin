@@ -12,9 +12,9 @@ public class QuestionDTO {
     protected String description;
     protected Users author;
     protected Date date;
-    protected int answerCount;
-    protected int viewCount;
-    protected int voteCount;
+    protected int answerCount = 0;
+    protected int viewCount = 1;
+    protected int voteCount = 0;
     protected List<QuestionTag> questionTags;
 
     public int getId() {

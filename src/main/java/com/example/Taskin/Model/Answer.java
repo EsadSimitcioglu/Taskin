@@ -9,98 +9,112 @@ import java.util.List;
 @Entity
 public class Answer {
 
-    @Id
-    @SequenceGenerator(
-            name = "answer_sequence",
-            sequenceName = "answer_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "answer_sequence")
-    @Column(name = "answer_id", nullable = false)
-    private Integer answerID;
+	@Id
+	@SequenceGenerator(
+			name = "answer_sequence",
+			sequenceName = "answer_sequence",
+			allocationSize = 1
+	)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "answer_sequence")
+	@Column(name = "answer_id", nullable = false)
+	private Integer answerID;
 
-    @Column(name = "answer_text", nullable = false)
-    private String answerText;
+	@Column(name = "answer_text", nullable = false, length = 3000)
+	private String answerText;
 
-    @Column(name = "answer_vote_count")
-    private Integer answerVoteCount;
+	@Column(name = "answer_vote_count")
+	private Integer answerVoteCount = 0;
 
-    @Column(name = "answer_date")
-    private Date answerDate;
+	@Column(name = "answer_date")
+	private Date answerDate;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Users user;
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Users user;
 
-    @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Question question;
+	@JsonIgnore
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Question question;
 
-    @OneToMany(mappedBy = "answer", cascade = CascadeType.ALL)
-    private List<Comment> answerComments;
+	@OneToMany(mappedBy = "answer", cascade = CascadeType.ALL)
+	private List<Comment> answerComments;
 
-    public Answer(String answerText, Users user, Date answerDate, Question question) {
-        this.answerText = answerText;
-        this.answerDate = answerDate;
-        this.question = question;
-        this.user = user;
-        this.answerVoteCount = 0;
-    }
+	public Answer(String answerText, Users user, Date answerDate, Question question) {
+		this.answerText = answerText;
+		this.answerDate = answerDate;
+		this.question = question;
+		this.user = user;
+		this.answerVoteCount = 0;
+	}
 
-    public Answer() {}
+	public Answer() {
+	}
 
-    public Integer getAnswerID() {
-        return answerID;
-    }
+	public Integer getAnswerID() {
+		return answerID;
+	}
 
-    public void setAnswerID(Integer answerID) {
-        this.answerID = answerID;
-    }
+	public void setAnswerID(Integer answerID) {
+		this.answerID = answerID;
+	}
 
-    public String getAnswerText() {
-        return answerText;
-    }
+	public String getAnswerText() {
+		return answerText;
+	}
 
-    public void setAnswerText(String answerText) {
-        this.answerText = answerText;
-    }
+	public void setAnswerText(String answerText) {
+		this.answerText = answerText;
+	}
 
-    public Integer getAnswerVoteCount() {
-        return answerVoteCount;
-    }
+	public Integer getAnswerVoteCount() {
+		return answerVoteCount;
+	}
 
-    public void setAnswerVoteCount(Integer answerVoteCount) {
-        this.answerVoteCount = answerVoteCount;
-    }
+	public void setAnswerVoteCount(Integer answerVoteCount) {
+		this.answerVoteCount = answerVoteCount;
+	}
 
-    public Date getAnswerDate() {
-        return answerDate;
-    }
+	public Date getAnswerDate() {
+		return answerDate;
+	}
 
-    public void setAnswerDate(Date answerDate) {
-        this.answerDate = answerDate;
-    }
+	public void setAnswerDate(Date answerDate) {
+		this.answerDate = answerDate;
+	}
 
-    public Question getQuestion() {
-        return question;
-    }
+	public Users getUser() {
+		return user;
+	}
 
-    public void setQuestion(Question question) {
-        this.question = question;
-    }
+	public void setUser(Users user) {
+		this.user = user;
+	}
 
-    public List<Comment> getAnswerComments() {
-        return answerComments;
-    }
+	public Question getQuestion() {
+		return question;
+	}
 
-    public void setAnswerComments(List<Comment> answerComments) {
-        this.answerComments = answerComments;
-    }
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
 
-    public Users getUser() {
-        return user;
-    }
+	public List<Comment> getAnswerComments() {
+		return answerComments;
+	}
 
-    public void setUser(Users user) {
-        this.user = user;
-    }
+	public void setAnswerComments(List<Comment> answerComments) {
+		this.answerComments = answerComments;
+	}
+
+	@Override
+	public String toString() {
+		return "Answer{" +
+				"answerID=" + answerID +
+				", answerText='" + answerText + '\'' +
+				", answerVoteCount=" + answerVoteCount +
+				", answerDate=" + answerDate +
+				", user=" + user +
+				", question=" + question +
+				", answerComments=" + answerComments +
+				'}';
+	}
 }
