@@ -1,6 +1,5 @@
 package com.example.Taskin.Service;
 
-import com.example.Taskin.Model.Answer;
 import com.example.Taskin.Model.Comment;
 import com.example.Taskin.Repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,19 +12,22 @@ public class CommentService {
     CommentRepository commentRepository;
 
     // Deleting a specific comment from Question
-    public void deleteCommentWithQuestionID(Integer questionID){commentRepository.deleteCommentWithQuestionID(questionID);}
-
-    // Deleting a specific comment from Answer
-    public void deleteCommentWithAnswerID(Integer answerID){
-        commentRepository.deleteCommentWithAnswerID(answerID);
+    public void deleteCommentWithID(Integer ID) {
+        commentRepository.deleteCommentWithID(ID);
     }
 
     // Updating a comment
-    public void updateComment(Comment comment){commentRepository.updateComment(comment,comment.getCommentID());}
+    public void updateComment(Comment comment, Integer id) {
+        commentRepository.updateComment(comment.getCommentText(), id);
+    }
 
     // Voting an answer UI needs to display updated vote count on the screen.
-    public void addVoteToComment(Integer commentID){
-        commentRepository.updateVoteCountByCommentID(commentID);
+    public void increaseVoteToComment(Integer commentID){
+        commentRepository.increaseVoteCountByCommentID(commentID);
+    }
+
+    public void decreaseVoteToComment(Integer commentID){
+        commentRepository.decreaseVoteCountByCommentID(commentID);
     }
 
 }

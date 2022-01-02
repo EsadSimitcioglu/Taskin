@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class CommentDTO {
     protected String text;
-    protected Users author;
+    protected Users user;
     protected Date date;
     protected Question question;
     protected Answer answer;
@@ -21,12 +21,12 @@ public class CommentDTO {
         this.text = text;
     }
 
-    public Users getAuthor() {
-        return author;
+    public Users getUser() {
+        return user;
     }
 
-    public void setAuthor(Users author) {
-        this.author = author;
+    public void setUser(Users user) {
+        this.user = user;
     }
 
     public Date getDate() {

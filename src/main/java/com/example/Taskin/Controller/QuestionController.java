@@ -3,9 +3,7 @@ package com.example.Taskin.Controller;
 import com.example.Taskin.Model.Answer;
 import com.example.Taskin.Model.Comment;
 import com.example.Taskin.Model.Question;
-import com.example.Taskin.Model.dto.AnswerDTO;
-import com.example.Taskin.Model.dto.CommentDTO;
-import com.example.Taskin.Model.dto.QuestionDTO;
+import com.example.Taskin.Model.dto.*;
 import com.example.Taskin.Service.Mapper.AnswerMapper;
 import com.example.Taskin.Service.Mapper.CommentMapper;
 import com.example.Taskin.Service.Mapper.QuestionMapper;
@@ -49,7 +47,7 @@ public class QuestionController {
     )
     public List<QuestionDTO> getAllQuestion() {return questionService.getAllQuestionDTO();}
 
-    @GetMapping("/tags")
+
     @Operation (
             summary = "GET questions that have tag",
             description = "GET questions that a have a question tag"
@@ -143,7 +141,7 @@ public class QuestionController {
                 )
             }
     )
-    public Answer postAnswerToQuestion(@PathVariable Integer id, @RequestBody Answer answer){
+    public AnswerQuestionDTO postAnswerToQuestion(@PathVariable Integer id, @RequestBody Answer answer){
         return questionService.saveNewAnswerToQuestionDTO(id,answer.getAnswerText(),answer.getUser().getUserName());
     }
 
@@ -166,12 +164,8 @@ public class QuestionController {
                 )
             }
     )
-    public Comment postCommentToQuestion(@PathVariable Integer id, @RequestBody Comment comment) {
-        return questionService.saveNewCommentToQuestionDTO(
-                id,
-                comment.getCommentText(),
-                comment.getUser().getUserName()
-        );
+    public CommentQuestionDTO postCommentToQuestion(@PathVariable Integer id, @RequestBody Comment comment) {
+        return questionService.saveNewCommentToQuestionDTO(id, comment.getCommentText(),comment.getUser().getUserName());
     }
 
     @PutMapping("/{id}/votes/increases")

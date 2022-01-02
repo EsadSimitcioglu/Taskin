@@ -11,16 +11,10 @@ public interface CommentMapper {
 	CommentMapper INSTANCE = Mappers.getMapper(CommentMapper.class);
 
 	@Mapping(source = "commentText", target = "text")
-	@Mapping(source = "user", target = "author")
 	@Mapping(source = "commentDate", target = "date")
-	@Mapping(source = "question", target = "question")
-	@Mapping(source = "answer", target = "answer")
 	CommentDTO commentToCommentDTO(Comment comment);
 
 	@Mapping(source = "text", target = "commentText")
-	@Mapping(source = "author", target = "user")
 	@Mapping(source = "date", target = "commentDate")
-	@Mapping(source = "question", target = "question")
-	@Mapping(source = "answer", target = "answer")
 	Comment commentDTOToComment(CommentDTO commentDTO);
 }

@@ -4,10 +4,10 @@ package com.example.Taskin.Controller;
 import com.example.Taskin.Model.Answer;
 import com.example.Taskin.Model.Comment;
 import com.example.Taskin.Model.dto.AnswerDTO;
+import com.example.Taskin.Model.dto.CommentAnswerDTO;
 import com.example.Taskin.Model.dto.CommentDTO;
 import com.example.Taskin.Service.AnswerService;
 import com.example.Taskin.Service.Mapper.AnswerMapper;
-import com.example.Taskin.Service.Mapper.CommentMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -29,7 +29,6 @@ public class AnswerController {
     @PostMapping("/{id}/comments")
     @Operation (summary = "Post a comment",
                 description = "Save new comment's content to database")
-    
     @ApiResponses(
             value = {
                 @ApiResponse(
@@ -44,8 +43,8 @@ public class AnswerController {
                 )
             }
     )
-    public CommentDTO postCommentToAnswer(@PathVariable Integer id, @RequestBody CommentDTO comment){
-        return answerService.saveNewCommentToAnswer(id,comment.getText(),comment.getAuthor().getUserName());
+    public CommentAnswerDTO postCommentToAnswer(@PathVariable Integer id, @RequestBody Comment comment){
+        return answerService.saveNewCommentToAnswer(id,comment.getCommentText(),comment.getUser().getUserName());
     }
 
     @PutMapping
