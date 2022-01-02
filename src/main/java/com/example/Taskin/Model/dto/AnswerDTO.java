@@ -9,7 +9,7 @@ import java.util.List;
 
 public class AnswerDTO {
     protected String answerText;
-    protected Integer voteCount;
+    protected Integer voteCount = 0;
     protected Date answerDate;
     protected Users user;
     protected Question question;
