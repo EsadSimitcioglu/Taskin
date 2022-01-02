@@ -1,15 +1,11 @@
 package com.example.Taskin.Service;
 import com.example.Taskin.Model.*;
-import com.example.Taskin.Model.dto.AnswerDTO;
-import com.example.Taskin.Model.dto.CommentDTO;
-import com.example.Taskin.Model.dto.QuestionDTO;
+import com.example.Taskin.Model.dto.*;
 import com.example.Taskin.Repository.AnswerRepository;
 import com.example.Taskin.Repository.CommentRepository;
 import com.example.Taskin.Repository.QuestionRepository;
 import com.example.Taskin.Repository.UserRepository;
-import com.example.Taskin.Service.Mapper.AnswerMapper;
-import com.example.Taskin.Service.Mapper.CommentMapper;
-import com.example.Taskin.Service.Mapper.QuestionMapper;
+import com.example.Taskin.Service.Mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -78,31 +74,31 @@ public class QuestionService {
     // Adding a new answer for a question. In addition to the Question ID, UI should also send the following
     //fields to the back-end application: answer text and user. UI needs newly added answer’s id and
     //related question’s id.
-    public Answer saveNewAnswerToQuestionDTO(Integer questionID, String answerText, String username) {
+    public AnswerQuestionDTO saveNewAnswerToQuestionDTO(Integer questionID, String answerText, String username) {
         Date date = new Date(Calendar.getInstance().getTime().getTime());
         Users user = userRepository.getUserByUserName(username);
         Question question = questionRepository.getById(questionID);
         Answer answer = new Answer(answerText, user, date, question);
 
-        if(user.equals(answer.getUser()))
+        if(user.equals(question.getUser()))
             return null;
         else {
             answerRepository.save(answer);
-            return answer;
+            return  AnswerQuestionMapper.INSTANCE.answerToAnswerQuestionDTO(answer);
         }
     }
 
     // Adding a new comment for a question. In addition to the Question ID, UI should also send the
     //following fields to the back-end application: comment text and user. UI needs newly added
     //comment’s id and related question’s id.
-    public Comment saveNewCommentToQuestionDTO(Integer questionID, String commentText, String username){
+    public CommentQuestionDTO saveNewCommentToQuestionDTO(Integer questionID, String commentText, String username){
         Date date = new Date(Calendar.getInstance().getTime().getTime());
         Users user = userRepository.getUserByUserName(username);
         Question question = questionRepository.getById(questionID);
         Comment comment = new Comment(commentText,user,date, question);
         commentRepository.save(comment);
 
-        return comment;
+        return CommentQuestionMapper.INSTANCE.commentToQuestionDTO(comment);
 
     }
 
@@ -119,4 +115,15 @@ public class QuestionService {
     // Display the question's vote count
     public Integer showQuestionVoteCount(Integer questionID) {return questionRepository.getAllQuestionVoteCount(questionID);}
 
+    // Display all comments for a spesific question
+    public CommentDTO getCommentsFromQuestion(Integer questionID){
+        List<CommentDTO> listDto = new ArrayList<>();
+        List<Comment> comments = questionRepository.getCommentsWithQuestionID(questionID);
+
+        comments.forEach(comment -> {
+            CommentDTO dto =  CommentMapper.INSTANCE.commentToCommentDTO(comment);
+            listDto.add(dto);
+        });
+        return (CommentDTO) listDto;
+    }
 }

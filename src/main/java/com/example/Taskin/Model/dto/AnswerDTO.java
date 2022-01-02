@@ -8,21 +8,12 @@ import java.sql.Date;
 import java.util.List;
 
 public class AnswerDTO {
-    protected Integer id;
     protected String answerText;
     protected Integer voteCount;
     protected Date answerDate;
     protected Users user;
     protected Question question;
     protected List<Comment> answerComments;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getAnswerText() {
         return answerText;
@@ -32,11 +23,11 @@ public class AnswerDTO {
         this.answerText = answerText;
     }
 
-    public int getVoteCount() {
+    public Integer getVoteCount() {
         return voteCount;
     }
 
-    public void setVoteCount(int voteCount) {
+    public void setVoteCount(Integer voteCount) {
         this.voteCount = voteCount;
     }
 
@@ -62,14 +53,6 @@ public class AnswerDTO {
 
     public void setQuestion(Question question) {
         this.question = question;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public void setVoteCount(Integer voteCount) {
-        this.voteCount = voteCount;
     }
 
     public List<Comment> getAnswerComments() {
