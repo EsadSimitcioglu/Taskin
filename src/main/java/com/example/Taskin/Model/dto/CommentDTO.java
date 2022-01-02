@@ -8,10 +8,19 @@ import java.util.Date;
 
 public class CommentDTO {
     protected String text;
+    protected Integer voteCount = 0;
     protected Users user;
     protected Date date;
     protected Question question;
     protected Answer answer;
+
+    public Integer getVoteCount() {
+        return voteCount;
+    }
+
+    public void setVoteCount(Integer voteCount) {
+        this.voteCount = voteCount;
+    }
 
     public String getText() {
         return text;

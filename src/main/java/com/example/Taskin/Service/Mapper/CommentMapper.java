@@ -12,9 +12,11 @@ public interface CommentMapper {
 
 	@Mapping(source = "commentText", target = "text")
 	@Mapping(source = "commentDate", target = "date")
+	@Mapping(source = "commentVoteCount", target = "voteCount")
 	CommentDTO commentToCommentDTO(Comment comment);
 
 	@Mapping(source = "text", target = "commentText")
 	@Mapping(source = "date", target = "commentDate")
+	@Mapping(source = "voteCount", target = "commentVoteCount")
 	Comment commentDTOToComment(CommentDTO commentDTO);
 }

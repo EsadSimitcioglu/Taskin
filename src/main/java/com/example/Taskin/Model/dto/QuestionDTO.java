@@ -9,8 +9,17 @@ import java.util.List;
 public class QuestionDTO {
     protected String title;
     protected String description;
+    protected Integer voteCount = 0;
     protected Users author;
     protected Date date;
+
+    public Integer getVoteCount() {
+        return voteCount;
+    }
+
+    public void setVoteCount(Integer voteCount) {
+        this.voteCount = voteCount;
+    }
 
     public String getTitle() {
         return title;

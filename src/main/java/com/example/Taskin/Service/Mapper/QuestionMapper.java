@@ -14,12 +14,14 @@ public interface QuestionMapper {
     @Mapping(source = "questionDescription", target = "description")
     @Mapping(source = "user", target = "author")
     @Mapping(source = "questionAskedDate", target = "date")
+    @Mapping(source = "questionVoteCount", target = "voteCount")
     QuestionDTO questionToQuestionDTO(Question question);
 
     @Mapping(source = "title", target = "questionTitle")
     @Mapping(source = "description", target = "questionDescription")
     @Mapping(source = "author", target = "user")
     @Mapping(source = "date", target = "questionAskedDate")
+    @Mapping(source = "voteCount", target = "questionVoteCount")
     Question questionDTOToQuestion(QuestionDTO questionDTO);
 
 }
