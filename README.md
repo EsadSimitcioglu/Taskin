@@ -41,3 +41,5 @@ Code is written by [Esad Simitcioglu](https://github.com/EsadSimitcioglu), [Emin
 - API docs are available from [here](http://localhost:8080/api-docs)
 - Swagger UI is available from [here](http://localhost:8080/swagger-ui-taskin.html)
 
+### Class Diagram
+- Class diagram is available from [resources directory](./src/main/resources)
